@@ -14,7 +14,7 @@
  * }
  *
  */
-export const userDataSchema = {
+export const $modelname$DataSchema = {
     $querymanattributes$
 }
 
