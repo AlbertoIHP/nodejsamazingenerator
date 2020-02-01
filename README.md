@@ -49,8 +49,10 @@ Then install nodejsamazingenerator through npm like this
 ```bash
 npm i nodejsamazingenerator
 ```
-***IMPORTANT: create your .env file by following .env.example file and add your vars at config/config.json to let Sequlize CLI connect db or project will not work***
-Finally by running `npm start`  server will be deployed following ***.env*** configurations.
+***IMPORTANT: create your .env file by following .env.example file***
+***and add your vars at config/config.json to let Sequlize CLI connect db or project will not work***
+
+Finally by running `npm run start-with:reset-db-dev`  server will be deployed following ***.env*** configurations. You can test methods with insomnia or something like that :)
 
 ## Usage
    
