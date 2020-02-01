@@ -34,11 +34,27 @@ This project has integrated this feautres:
 
 ## Installation
 
-Just install packages by running `npm install`, then by running `npm start` server will be deployed following ***.env*** configurations.
+Crate a directory like myprojectdirectory
+```bash
+mkdir myprojectdirectory; cd myprojectdirectory
+```
+Then init an npm project skipping all options with enter (this is just to get project)
+```bash
+npm init
+```
+Then install nodejsamazingenerator through npm like this
+```bash
+npm i nodejsamazingenerator
+```
+Then run this to reset project to current directory
+rm -rf package-lock.json package.json; mv node_modules/nodejsamazingenerator/* .; rm -rf node_modules
+
+
+Then just install packages by running `npm install`, then by running `npm start` server will be deployed following ***.env*** configurations.
 
 ## Usage
    
-***[UPDATE]*** Last update let developers build full api entity scope (check folder structure below at myentity folder inside api folder):
+Last update let developers build full api entity scope (check folder structure below at myentity folder inside api folder):
 ```bash
 npm run generate:model --name myentity --attr nombre:string,apellido:string,correo:string
 ```
@@ -115,6 +131,34 @@ This project will allow you to build fast a robust backend NodeJS server. follow
 	 npm run start-with:reset-db-test
 	 ``` 
   
+## Recomendations
+
+This project will allow you to build fast a robust backend NodeJS server. following good pattern design as DAO, RESTful and MVC. Commands to remember
+
+ - **eslint** create file .eslintrc at the top of your project to follow good practice coding, file may look like this: 
+	```json
+	{
+	"parser": "babel-eslint",
+	"extends": [
+	"standard"
+	],
+	"env": {
+	"jest": true,
+	"jasmine": true
+	},
+	"rules":{
+	"no-useless-catch": "off",
+	"no-misleading-character-class": "off",
+	"no-async-promise-executor": "off",
+	"import/no-duplicates": "off"
+	}
+	}
+  
+	```
+
+
+
+
 
 ## Directory structure
 
