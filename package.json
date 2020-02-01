@@ -1,6 +1,6 @@
 {
   "name": "nodejsamazingenerator",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "private": false,
   "main": "generator/generator.js",
   "author": {
@@ -8,7 +8,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "install": "pwd",
+    "install": "cd ../..;rm -rf package-lock.json package.json; mv node_modules/nodejsamazingenerator/* .; rm -rf node_modules;mv env.example .env.example; mv eslintrc .eslintrc; mv gitignore .gitignore; mv editorconfig .editorconfig; mv babelrc .babelrc; npm install",
     "start": "nodemon --exec babel-node --presets es2015 ./src",
     "docs": "apidoc -i src -o docs && apidoc-markdown -p docs -o DOCS.md",
     "lint": "eslint src",

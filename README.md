@@ -46,17 +46,8 @@ Then install nodejsamazingenerator through npm like this
 ```bash
 npm i nodejsamazingenerator
 ```
-Then run this to reset project to current directory
-```bash
-rm -rf package-lock.json package.json; mv node_modules/nodejsamazingenerator/* .; rm -rf node_modules
-```
-
-Finally add . to files that needs to be interpreted, with follow command:
-```bash
-mv env.example .env.example; mv eslintrc .eslintrc; mv gitignore .gitignore; mv editorconfig .editorconfig; mv babelrc .babelrc
-```
-
-Then just install packages by running `npm install`, then by running `npm start` server will be deployed following ***.env(create your .env file by following .env.example file or project will not work)*** configurations.
+***IMPORTANT: create your .env file by following .env.example file or project will not work***
+Finally by running `npm start`  server will be deployed following ***.env*** configurations.
 
 ## Usage
    
