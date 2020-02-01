@@ -1,7 +1,8 @@
 {
   "name": "nodejsamazingenerator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
+  "main": "generator/generator.js",
   "author": {
     "name": "Alberto Herrera Poza"
   },
@@ -18,6 +19,29 @@
     "generate-models-from-db": "sequelize-auto -o /src/api -d proplannerv2_db -h localhost -u rails_dev -p 5432 -x aqwe123 -e postgres",
     "sequelize": "./node_modules/.bin/babel-node ./node_modules/.bin/sequelize $*",
     "generate:model": "node generator/generator.js"
+  },
+  "keywords": [
+    "nodejs",
+    "generator",
+    "express",
+    "mocha",
+    "jwt",
+    "passport",
+    "sendgrid",
+    "sequelize",
+    "sequelize-cli",
+    "models",
+    "dao",
+    "mvc",
+    "restful",
+    "migrations",
+    "docs",
+    "generate",
+    "amazing"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AlbertoIHP/nodejsamazingenerator"
   },
   "dependencies": {
     "@sendgrid/mail": "^6.3.1",
