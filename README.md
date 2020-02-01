@@ -14,7 +14,7 @@
 
 Several changes about this both project, were maked by developer team. However many thanks to this both developers by creating both projects as open source code :)
   
-   ## Features
+   # Features
 
 This project has integrated this feautres:
 
@@ -49,7 +49,7 @@ Then install nodejsamazingenerator through npm like this
 ```bash
 npm i nodejsamazingenerator
 ```
-***IMPORTANT: create your .env file by following .env.example file or project will not work***
+***IMPORTANT: create your .env file by following .env.example file and add your vars at config/config.json to let Sequlize CLI connect db or project will not work***
 Finally by running `npm start`  server will be deployed following ***.env*** configurations.
 
 ## Usage
