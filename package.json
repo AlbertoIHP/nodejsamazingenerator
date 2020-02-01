@@ -1,6 +1,6 @@
 {
   "name": "nodejsamazingenerator",
-  "version": "1.0.7",
+  "version": "1.1.0",
   "private": false,
   "main": "generator/generator.js",
   "author": {
@@ -8,6 +8,7 @@
   },
   "license": "MIT",
   "scripts": {
+    "install": "pwd",
     "start": "nodemon --exec babel-node --presets es2015 ./src",
     "docs": "apidoc -i src -o docs && apidoc-markdown -p docs -o DOCS.md",
     "lint": "eslint src",
