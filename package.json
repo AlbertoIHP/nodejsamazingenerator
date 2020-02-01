@@ -8,7 +8,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "install": "cd ../..;rm -rf package-lock.json package.json; mv node_modules/nodejsamazingenerator/* .; rm -rf node_modules;mv env.example .env.example; mv eslintrc .eslintrc; mv gitignore .gitignore; mv editorconfig .editorconfig; mv babelrc .babelrc; npm install",
+    "install": "cd ../..;rm -rf package-lock.json package.json; mv node_modules/nodejsamazingenerator/* .; rm -rf node_modules;mv env.example .env.example; mv eslintrc .eslintrc; mv gitignore .gitignore; mv editorconfig .editorconfig; mv babelrc .babelrc; cp .env.example .env; npm install; ",
     "start": "nodemon --exec babel-node --presets es2015 ./src",
     "docs": "apidoc -i src -o docs && apidoc-markdown -p docs -o DOCS.md",
     "lint": "eslint src",
