@@ -56,7 +56,7 @@ Finally add . to files that needs to be interpreted, with follow command:
 mv env.example .env.example; mv eslintrc .eslintrc; mv gitignore .gitignore; mv editorconfig .editorconfig; mv babelrc .babelrc
 ```
 
-Then just install packages by running `npm install`, then by running `npm start` server will be deployed following ***.env*** configurations.
+Then just install packages by running `npm install`, then by running `npm start` server will be deployed following ***.env(create your .env file by following .env.example file or project will not work)*** configurations.
 
 ## Usage
    
