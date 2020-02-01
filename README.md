@@ -53,7 +53,7 @@ rm -rf package-lock.json package.json; mv node_modules/nodejsamazingenerator/* .
 
 Finally add . to files that needs to be interpreted, with follow command:
 ```bash
-mv env .env; mv env.example .env.example; mv eslintrc .eslintrc; mv gitignore .gitignore; mv editorconfig .editorconfig; mv babelrc .babelrc
+mv env.example .env.example; mv eslintrc .eslintrc; mv gitignore .gitignore; mv editorconfig .editorconfig; mv babelrc .babelrc
 ```
 
 Then just install packages by running `npm install`, then by running `npm start` server will be deployed following ***.env*** configurations.
