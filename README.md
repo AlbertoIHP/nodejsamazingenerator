@@ -47,7 +47,12 @@ Then install nodejsamazingenerator through npm like this
 npm i nodejsamazingenerator
 ```
 Then run this to reset project to current directory
+```bash
 rm -rf package-lock.json package.json; mv node_modules/nodejsamazingenerator/* .; rm -rf node_modules
+```
+
+Finally add . to files that needs to be interpreted, with follow command:
+
 
 
 Then just install packages by running `npm install`, then by running `npm start` server will be deployed following ***.env*** configurations.
@@ -131,53 +136,6 @@ This project will allow you to build fast a robust backend NodeJS server. follow
 	 npm run start-with:reset-db-test
 	 ``` 
   
-## Manual configuration
-
-This project will allow you to build fast a robust backend NodeJS server. following good pattern design as DAO, RESTful and MVC. Commands to remember
-
- - **eslint** create file .eslintrc at the top of your project to follow good practice coding, file may look like this: 
-	```json
-	{
-	"parser": "babel-eslint",
-	"extends": [
-	"standard"
-	],
-	"env": {
-	"jest": true,
-	"jasmine": true
-	},
-	"rules":{
-	"no-useless-catch": "off",
-	"no-misleading-character-class": "off",
-	"no-async-promise-executor": "off",
-	"import/no-duplicates": "off"
-	}
-	}
-  
-	```
-  
- - **eslint** create file .eslintrc at the top of your project to follow good practice coding, file may look like this: 
-	```json
-	{
-	"parser": "babel-eslint",
-	"extends": [
-	"standard"
-	],
-	"env": {
-	"jest": true,
-	"jasmine": true
-	},
-	"rules":{
-	"no-useless-catch": "off",
-	"no-misleading-character-class": "off",
-	"no-async-promise-executor": "off",
-	"import/no-duplicates": "off"
-	}
-	}
-  
-	```
-
-
 
 
 ## Directory structure
