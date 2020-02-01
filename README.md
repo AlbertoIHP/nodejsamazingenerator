@@ -2,7 +2,9 @@
 
 
 
-## Node.JS amazinGenerator
+
+
+## Node.JS amazinGenerator  [![NPM version][npm-image]][npm-url] 
 
   
 
@@ -11,6 +13,7 @@
   
 
 Several changes about this both project, were maked by developer team. However many thanks to this both developers by creating both projects as open source code :)
+  
    # Features
 
 This project has integrated this feautres:
@@ -34,7 +37,7 @@ This project has integrated this feautres:
 
 ## Installation
 
-Crate a directory like myprojectdirectory
+Crate a directory like myprojectdirectory and then enter it by following code (replace with your project name of course)
 ```bash
 mkdir myprojectdirectory; cd myprojectdirectory
 ```
@@ -791,3 +794,6 @@ Here you can put `helpers`, `libraries` and other types of modules which you wan
 ## License
 
 MIT © [Alberto Herrera Poza](https://github.com/AlbertoIHP)
+
+[npm-image]: https://badge.fury.io/js/nodejsamazingenerator.svg
+[npm-url]: https://www.npmjs.com/package/nodejsamazingenerator
