@@ -1,0 +1,68 @@
+/**
+ * From queryman lib syntaxis (Check https://www.npmjs.com/package/bodymen)
+ * Which could be use as validating fetching tool at controller or event at express
+ * example of schema definitions:
+ * attribute: {
+ *   type: String,
+ *   match: /^\S+@\S+\.\S+$/,
+ *   required: true,
+ *   unique: true,
+ *   trim: true,
+ *   lowercase: true,
+ *   minlength: 6,
+ *   enum: roles
+ * }
+ *
+ */
+export const userDataSchema = {
+    $querymanattributes$
+}
+
+/**
+ * This method build usefull attr to be declared in many places as it could be necessary (migrations example)
+ * @param {*} DataTypes From Sequelize instance
+ */
+export const $modelname$Attributes = (DataTypes) => {
+  return {
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true
+    },    
+  $modelattributes$  
+  }
+}
+
+
+/**
+ * Sequelize model
+ */
+export default (sequelize, DataTypes) => {
+  const $modelname$ = sequelize.define('$modelname$', {
+    ...$modelname$Attributes(DataTypes)
+  }, {
+    tableName: '$modelname$s',
+    hooks: {
+      /**
+       * hooks methods from models recognize some
+       * lifecycle hooks from the user model component
+       * to execute some custom 'scripts' on them
+       * (Check https://sequelize.org/master/manual/hooks.html)
+       */
+      beforeSave: async (user) => {
+        // My before save logic
+      }
+    }
+  });
+
+  $modelname$.associate = function(models) {
+    // associations can be defined here
+  };
+
+  return $modelname$;
+}
+
+
+
+  

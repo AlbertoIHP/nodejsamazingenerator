@@ -1,0 +1,19 @@
+'use strict'
+
+import { $modelname$Attributes } from '../src/api/$modelname$/$modelname$.model'
+
+/**
+ * With $modelname$Attributes we can spread whole attr model config
+ */
+module.exports = (() => {
+  return {
+    up: (sequelize, DataTypes) => {
+      return sequelize.createTable('$modelname$s', {
+        ...$modelname$Attributes(DataTypes)
+      })
+    },
+    down: (queryInterface, Sequelize) => {
+      return queryInterface.dropTable('$modelname$s')
+    }
+  }
+})()

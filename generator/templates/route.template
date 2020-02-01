@@ -1,0 +1,2 @@
+
+router.use('/api/$modelname$s', $modelname$Router)

@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "rails_dev",
+    "password": "aqwe123",
+    "database": "proplannerv2_dev",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "rails_dev",
+    "password": "aqwe123",
+    "database": "proplannerv2_test",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "rails_dev",
+    "password": "aqwe123",
+    "database": "proplannerv2_prod",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}

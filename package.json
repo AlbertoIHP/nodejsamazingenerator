@@ -1,0 +1,82 @@
+{
+  "name": "nodejsamazingenerator",
+  "version": "1.0.0",
+  "private": false,
+  "author": {
+    "name": "Alberto Herrera Poza"
+  },
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon --exec babel-node --presets es2015 ./src",
+    "docs": "apidoc -i src -o docs && apidoc-markdown -p docs -o DOCS.md",
+    "lint": "eslint src",
+    "test": "mocha --require babel-core/register --watch",
+    "postdocs": "npx opn-cli docs/index.html",
+    "start-with:reset-db-dev": "npm run sequelize db:drop --env=development;npm run sequelize db:create --env=development; npm run sequelize db:migrate --env=development; npm start",
+    "start-with:reset-db-test": "npm run sequelize db:drop --env=test;npm run sequelize db:create --env=test; npm run sequelize db:migrate --env=test; npm start",
+    "start-with:reset-db-prod": "npm run sequelize db:drop --env=production;npm run sequelize db:create --env=production; npm run sequelize db:migrate --env=production; npm start",
+    "generate-models-from-db": "sequelize-auto -o /src/api -d proplannerv2_db -h localhost -u rails_dev -p 5432 -x aqwe123 -e postgres",
+    "sequelize": "./node_modules/.bin/babel-node ./node_modules/.bin/sequelize $*",
+    "generate:model": "node generator/generator.js"
+  },
+  "dependencies": {
+    "@sendgrid/mail": "^6.3.1",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-1": "^6.24.1",
+    "babel-preset-stage-3": "^6.17.0",
+    "babel-runtime": "^6.26.0",
+    "bcrypt": "^3.0.0",
+    "bluebird": "^3.5.1",
+    "body-parser": "^1.19.0",
+    "bodymen": "^1.0.3",
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
+    "compression": "^1.7.1",
+    "cookie-parser": "~1.4.3",
+    "cors": "^2.8.4",
+    "debug": "^4.1.1",
+    "express": "^4.17.1",
+    "express-session": "^1.15.6",
+    "jsonwebtoken": "^8.1.0",
+    "mocha": "^7.0.1",
+    "morgan": "~1.9.0",
+    "passport": "^0.4.0",
+    "passport-http": "^0.3.0",
+    "passport-http-bearer": "^1.0.1",
+    "passport-jwt": "^4.0.0",
+    "pg": "^7.17.1",
+    "pg-hstore": "^2.3.2",
+    "querymen": "^2.1.3",
+    "sequelize": "^5.21.3",
+    "sequelize-auto": "^0.4.29",
+    "sequelize-cli": "^5.5.1"
+  },
+  "devDependencies": {
+    "apidoc": "^0.20.0",
+    "apidoc-markdown": "^0.2.0",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^10.0.3",
+    "babel-jest": "^25.1.0",
+    "babel-preset-env": "^1.6.1",
+    "dotenv-safe": "^8.2.0",
+    "eslint": "^6.8.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "nodemon": "^2.0.2",
+    "supertest": "^4.0.2"
+  },
+  "babel": {
+    "presets": [
+      "env"
+    ]
+  }
+}

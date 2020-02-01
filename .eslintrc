@@ -1,0 +1,17 @@
+{
+ "parser": "babel-eslint",
+ "extends": [
+   "standard"
+ ],
+ "env": {
+   "jest": true,
+   "jasmine": true
+ },
+ "rules":{
+   "no-useless-catch": "off",
+   "no-misleading-character-class": "off",
+   "no-async-promise-executor": "off",
+   "import/no-duplicates": "off"
+ }
+}
+  

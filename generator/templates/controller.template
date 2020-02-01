@@ -1,0 +1,77 @@
+
+import { success, notFound } from '../../services/response'
+import models from '../../services/sequelize'
+import consoleColors from '../../utils/console_colors'
+import { errorHandler } from '../../utils/error_handler'
+
+export const index = async ({ querymen: { query, select, cursor } }, res, next) => {
+  try {
+    const $modelname$s = await models.$modelname$.findAll()
+    res.status(200).send({ $modelname$s: $modelname$s })
+    success(res)({ $modelname$s: $modelname$s })
+  } catch (err) {
+    errorHandler(err)
+    notFound(res)({ msj: err })
+  }
+}
+
+export const show = async ({ params }, res, next) => {
+  try {
+    const s = await models.$modelname$.findOne({ where: { id: params.id } })
+    if (s != null) success(res)({ $modelname$: s })
+    else notFound(res)({})
+  } catch (err) {
+    errorHandler(err)
+    notFound(res)({ msj: err })
+  }
+}
+
+/**
+ * This method creates a new $modelname$ by using bodymen and other usefull functions from the response service, check it ;)
+ * @param {*} param0 params from the request, getting it with bodymen
+ * @param {*} res res object to return to fetcher
+ * @param {*} next next function from Express to go through the next middleware on the fetch
+ */
+export const create = async ({ bodymen: { body } }, res, next) => {
+  console.log(consoleColors.successConsole, '[SUCCESS] Master and Bodyman middlewares check completed succesfully')
+  try {
+    const new$modelname$ = await models.$modelname$.build(body)
+    if (new$modelname$) {
+      await new$modelname$.save()
+      console.log(new$modelname$.password)
+      if (success(res, 200)(new$modelname$)) {
+        console.log(consoleColors.statusConsole, '[STATUS] Returned res succesfully to fetcher')
+      } else {
+        next()
+      }
+    } else {
+      next()
+    }
+  } catch (err) {
+    errorHandler(err)
+    notFound(res)({ msj: err })
+  }
+}
+
+export const update = async ({ bodymen: { body }, params, $modelname$ }, res, next) => {
+  try {
+    const s = await models.$modelname$.update(body, { where: { id: body.id } })
+    if (s != null) success(res)({ msj: '$modelname$ updated', $modelname$: s })
+    // eslint-disable-next-line no-throw-literal
+    else throw '$modelname$ no existe!'
+  } catch (err) {
+    errorHandler(err)
+    notFound(res)({ msj: err })
+  }
+}
+
+export const destroy = async ({ params }, res, next) => {
+  try {
+    const s = await models.$modelname$.findOne({ where: { id: params.id } })
+    const deleted = await s.destroy()
+    success(200)({ msj: '$modelname$ deleted', $modelname$: deleted })
+  } catch (err) {
+    errorHandler(err)
+    notFound(res)({ msj: err })
+  }
+}
