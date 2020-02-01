@@ -131,7 +131,7 @@ This project will allow you to build fast a robust backend NodeJS server. follow
 	 npm run start-with:reset-db-test
 	 ``` 
   
-## Recomendations
+## Manual configuration
 
 This project will allow you to build fast a robust backend NodeJS server. following good pattern design as DAO, RESTful and MVC. Commands to remember
 
@@ -155,7 +155,27 @@ This project will allow you to build fast a robust backend NodeJS server. follow
 	}
   
 	```
-
+  
+ - **eslint** create file .eslintrc at the top of your project to follow good practice coding, file may look like this: 
+	```json
+	{
+	"parser": "babel-eslint",
+	"extends": [
+	"standard"
+	],
+	"env": {
+	"jest": true,
+	"jasmine": true
+	},
+	"rules":{
+	"no-useless-catch": "off",
+	"no-misleading-character-class": "off",
+	"no-async-promise-executor": "off",
+	"import/no-duplicates": "off"
+	}
+	}
+  
+	```
 
 
 
