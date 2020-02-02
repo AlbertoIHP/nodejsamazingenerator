@@ -38,7 +38,6 @@ export const create = async ({ bodymen: { body } }, res, next) => {
     const new$modelname$ = await models.$modelname$.build(body)
     if (new$modelname$) {
       await new$modelname$.save()
-      console.log(new$modelname$.password)
       if (success(res, 200)(new$modelname$)) {
         console.log(consoleColors.statusConsole, '[STATUS] Returned res succesfully to fetcher')
       } else {
