@@ -792,6 +792,13 @@ Here you can put `helpers`, `libraries` and other types of modules which you wan
 	With it, by running ```npm run docs``` will generate the doc, and open it at your default web browser.
   
   
+## TODO list
+Follow list is a pending goals list to do (PR are welcome)
+ * Generate test files for mocha inside test folder with .spec.js extension
+ * Add --mode flag to command whit enum likes 'single' for, actual working of generator, and 'massive' followed by a models.json that will be added in future versions of this package.
+ * Add to Readme.md a section of examples, which could have images with how to fetch generated API, through Postman, insomnia or Advanced Restful client as a fetching tool
+ * Add validations to command when user dont use it as he should.
+  
 
 ## License
 
