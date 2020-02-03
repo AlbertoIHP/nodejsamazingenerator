@@ -800,6 +800,7 @@ Follow list is a pending goals list to do (PR are welcome)
  * Add validations to command when user dont use it as he should.
  * Update sendgrid section with pass reset example
  * Add init:project as npm command, to configure básics PROJECT config to scaffold it. (project name, db credentials, credentialsbyenv boolean, ando other info)
+ * Apply factory model to use fakers at test as follow https://labs.chiedo.com/post/testing-a-node-js-rest-api-with-mocha-and-chai/ (on dev check services/factorygirl/index.js and each .factory.js extension entity file )
 
 ## License
 
