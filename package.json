@@ -1,6 +1,6 @@
 {
   "name": "nodejsamazingenerator",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "private": false,
   "main": "generator/generator.js",
   "author": {
@@ -19,7 +19,8 @@
     "start-with:reset-db-prod": "npm run sequelize db:drop --env=production;npm run sequelize db:create --env=production; npm run sequelize db:migrate --env=production; npm start",
     "generate-models-from-db": "sequelize-auto -o /src/api -d proplannerv2_db -h localhost -u rails_dev -p 5432 -x aqwe123 -e postgres",
     "sequelize": "./node_modules/.bin/babel-node ./node_modules/.bin/sequelize $*",
-    "generate:model": "node generator/generator.js"
+    "generate:model": "node generator/generator.js",
+    "init:project": ""
   },
   "keywords": [
     "nodejs",
