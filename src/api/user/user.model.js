@@ -3,7 +3,7 @@
 import bcrypt from 'bcrypt'
 import { errorHandler } from '../../utils/error_handler'
 
-const roles = [
+export const roles = [
   'user',
   'admin',
   'superadmin'

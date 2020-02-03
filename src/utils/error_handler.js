@@ -7,13 +7,13 @@ import consoleColors from './console_colors'
 export const errorHandler = (error) => {
   switch (error.name) {
     case 'TypeError':
-      console.log(consoleColors.errorConsole, '[ERROR] Error on TypeError: ', error.message)
+      console.log(consoleColors.errorConsole, '[ERROR] Error on TypeError: ', error)
       break
     case 'SequelizeConnectionError':
-      console.log(consoleColors.errorConsole, '[ERROR] Error on SequelizeConnectionError: ', error.message)
+      console.log(consoleColors.errorConsole, '[ERROR] Error on SequelizeConnectionError: ', error)
       break
     default:
-      console.log(consoleColors.errorConsole, '[ERROR] Error on ' + error.name + ': ', error.message)
+      console.log(consoleColors.errorConsole, '[ERROR] Error on ' + error.name + ': ', error)
       break
   }
 }

@@ -18,7 +18,7 @@ export const success = (res, status) => (entity) => {
  */
 export const notFound = (res) => (entity) => {
   if (entity) {
-    return entity
+    return res.status(500).json(entity)
   }
   res.status(404).end()
   return null

@@ -1,11 +1,11 @@
 import passport from 'passport'
 import { Schema } from 'bodymen'
 import { BasicStrategy } from 'passport-http'
-import { Strategy as BearerStrategy } from 'passport-http-bearer'
-import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt'
+import { Strategy as JwtStrategy } from 'passport-jwt'
 import config from '../../config'
-import User from '../../api/user/user.model'
 import bcrypt from 'bcrypt'
+
+import { roles as usersRoles } from '../../api/user/user.model'
 
 import models from '../sequelize'
 
@@ -49,7 +49,7 @@ export const password = () => (req, res, next) => {
  * @param {*} param0 Object composed by 'required' boolean which said if should go through
  * JWT flow or not, also allows roles as an array of allowed roles [ 'admin' ] as example
  */
-export const token = ({ required, roles = User.roles } = {}) => (req, res, next) =>
+export const token = ({ required, roles = usersRoles } = {}) => (req, res, next) =>
   passport.authenticate('token', { session: false }, (err, user, info) => {
     if (err || (required && !user) || (required && !~roles.indexOf(user.role))) {
       return res.status(401).end()
@@ -105,7 +105,7 @@ passport.use('password', new BasicStrategy(async (email, password, done) => {
   })
 
   try {
-    const user = await models.users.findOne({
+    const user = await models.user.findOne({
       where: {
         email: email
       }
@@ -129,10 +129,21 @@ passport.use('password', new BasicStrategy(async (email, password, done) => {
  * Apps and not any user from any fetching tool with a correct JWT token
  * If token is correct returns an object empty, that is interpreted as a correct done function result
  * But if isnt, is used by given a false value which is interpreted by passport as deny access to the Fetching indeed
- */
-passport.use('master', new BearerStrategy((token, done) => {
+ *
+ * passport.use('master', new BearerStrategy((token, done) => {
   console.log(consoleColors.statusConsole, '[STATUS] Checking master key on body access_token param')
   if (token === config.masterKey) {
+    done(null, {})
+  } else {
+    done(null, false)
+  }
+}))
+
+ *
+ */
+
+passport.use('master', new BasicStrategy(async (email, password, done) => {
+  if (password === config.masterKey) {
     done(null, {})
   } else {
     done(null, false)
@@ -147,19 +158,24 @@ passport.use('token', new JwtStrategy({
   /**
    * Then by extracting from request the access_token given after logging API (It could be at URL, at Body from request, or Header from request)
    */
-  jwtFromRequest: ExtractJwt.fromExtractors([
-    ExtractJwt.fromUrlQueryParameter('access_token'),
-    ExtractJwt.fromBodyField('access_token'),
-    ExtractJwt.fromAuthHeaderWithScheme('Bearer')
-  ])
+  jwtFromRequest: function (req) {
+    var token = null
+    if (req) {
+      req.rawHeaders.map((header, index) => {
+        if (header == 'proxy-authorization') { token = (req.rawHeaders[(index + 1)]).split('Bearer ').join('') }
+      })
+    }
+    return token
+  }
   /**
    * At last, get the user and is added to request as req.user with
    * done function, that takes the profile info and attaches it on the request object so its available on your callback url as req.user.
    * ( Read  https://hackernoon.com/passportjs-the-confusing-parts-explained-edca874ebead )
    */
-}, ({ id }, done) => {
-  User.findById(id).then((user) => {
-    done(null, user)
+}, async ({ id }, done) => {
+  const userLogged = await models.user.findOne({ where: { id: id } })
+  if (userLogged) {
+    done(null, userLogged)
     return null
-  }).catch(done)
+  } else throw 'User id dont match at Databse registers'
 }))

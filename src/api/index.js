@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import user from './user'
 import auth from './auth'
+import passwordresetRouter from './passwordreset'
 /** nextImport */
 
 const router = new Router()
@@ -30,6 +31,7 @@ const router = new Router()
  */
 router.use('/api/users', user)
 router.use('/auth', auth)
+router.use('/api/passwordresets', passwordresetRouter)
 /** nextApi */
 
 export default router

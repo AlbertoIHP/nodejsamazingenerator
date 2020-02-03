@@ -7,7 +7,6 @@ import { errorHandler } from '../../utils/error_handler'
 export const index = async ({ querymen: { query, select, cursor } }, res, next) => {
   try {
     const users = await models.user.findAll()
-    res.status(200).send({ users: users })
     success(res)({ users: users })
   } catch (err) {
     errorHandler(err)
@@ -58,7 +57,7 @@ export const update = async ({ bodymen: { body }, params, user }, res, next) => 
     const s = await models.user.update(body, { where: { id: body.id } })
     if (s != null) success(res)({ msj: 'user updated', user: s })
     // eslint-disable-next-line no-throw-literal
-    else throw 'user no existe!'
+    else throw 'User does not exist.'
   } catch (err) {
     errorHandler(err)
     notFound(res)({ msj: err })
@@ -69,7 +68,7 @@ export const destroy = async ({ params }, res, next) => {
   try {
     const s = await models.user.findOne({ where: { id: params.id } })
     const deleted = await s.destroy()
-    success(200)({ msj: 'user deleted', user: deleted })
+    success(200)({ msj: 'User deleted', user: deleted })
   } catch (err) {
     errorHandler(err)
     notFound(res)({ msj: err })

@@ -26,6 +26,7 @@ const {
  * @apiError 401 Admin access only.
  */
 router.get('/',
+  master(),
   token({ required: true, roles: ['admin'] }),
   query(),
   index)
@@ -39,6 +40,8 @@ router.get('/',
  * @apiError 404 User not found.
  */
 router.get('/:id',
+  master(),
+  token({ required: true, roles: ['admin'] }),
   show)
 
 /**
@@ -81,6 +84,7 @@ router.post('/',
  * @apiError 404 User not found.
  */
 router.put('/:id',
+  master(),
   token({ required: true }),
   body({
     email,
@@ -101,6 +105,7 @@ router.put('/:id',
  * @apiError 404 User not found.
  */
 router.delete('/:id',
+  master(),
   token({ required: true, roles: ['admin'] }),
   destroy)
 

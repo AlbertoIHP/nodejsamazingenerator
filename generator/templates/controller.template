@@ -7,7 +7,6 @@ import { errorHandler } from '../../utils/error_handler'
 export const index = async ({ querymen: { query, select, cursor } }, res, next) => {
   try {
     const $modelname$s = await models.$modelname$.findAll()
-    res.status(200).send({ $modelname$s: $modelname$s })
     success(res)({ $modelname$s: $modelname$s })
   } catch (err) {
     errorHandler(err)
