@@ -4,14 +4,15 @@
    "standard"
  ],
  "env": {
-   "jest": true,
+   "mocha": true,
    "jasmine": true
  },
  "rules":{
    "no-useless-catch": "off",
    "no-misleading-character-class": "off",
    "no-async-promise-executor": "off",
-   "import/no-duplicates": "off"
+   "import/no-duplicates": "off",
+   "no-throw-literal": "off"
  }
 }
   

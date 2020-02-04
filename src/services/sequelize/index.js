@@ -3,8 +3,12 @@ import path from 'path'
 import Sequelize from 'sequelize'
 
 import config from '../../config'
+import consoleColors from '../../utils/console_colors'
 const target = path.join(__dirname, '../../api')
 
+console.log(consoleColors.statusConsole, '************> MAIN SERVER CONFIG: \n', config)
+console.log(consoleColors.statusConsole, '*********************************************************************************')
+console.log(consoleColors.statusConsole, '*********************************************************************************')
 /**
  * Instance of the main Sequelize object to be injected in other files, as the user controller from legacy example
  */
@@ -15,7 +19,7 @@ const sequelize = new Sequelize(config.postgresql.uri, {
   host: config.postgresql.db_host,
   port: config.postgresql.db_port,
   define: {
-    timestamps: false /** Must be true */
+    timestamps: true /** Must be true */
   }
 })
 
@@ -50,8 +54,11 @@ searchModels(target, models)
 models.map((modelPath) => {
   const model = sequelize.import(modelPath)
   db[model.name] = model
-  if ('associate' in db[model.name]) {
-    db[model.name].associate(db)
+})
+
+Object.keys(db).forEach(modelName => {
+  if (db[modelName].associate) {
+    db[modelName].associate(db)
   }
 })
 
@@ -59,7 +66,7 @@ models.map((modelPath) => {
  * Assign just sequelize to the instance of the object Sequelize
  * and also a Sequelize default style as class without instance
  */
+sequelize.sync()
 db.sequelize = sequelize
 db.Sequelize = Sequelize
-export default db
 module.exports = db

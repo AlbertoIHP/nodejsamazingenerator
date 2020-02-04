@@ -125,21 +125,12 @@ passport.use('password', new BasicStrategy(async (email, password, done) => {
 }))
 
 /**
- * Receives a token through the header Bearer, which ones must contain the MASTER_KEY to private the access to the API just to authorized
+ * Receives a token through the header Bearer, which ones must contain the MASTER_KEY to private the access 
+ * to the API just to authorized
  * Apps and not any user from any fetching tool with a correct JWT token
  * If token is correct returns an object empty, that is interpreted as a correct done function result
  * But if isnt, is used by given a false value which is interpreted by passport as deny access to the Fetching indeed
- *
- * passport.use('master', new BearerStrategy((token, done) => {
-  console.log(consoleColors.statusConsole, '[STATUS] Checking master key on body access_token param')
-  if (token === config.masterKey) {
-    done(null, {})
-  } else {
-    done(null, false)
-  }
-}))
-
- *
+ * *
  */
 
 passport.use('master', new BasicStrategy(async (email, password, done) => {
@@ -156,12 +147,17 @@ passport.use('master', new BasicStrategy(async (email, password, done) => {
 passport.use('token', new JwtStrategy({
   secretOrKey: config.jwtSecret, /** Mainly by giving to it the JWT_SECRET from .env (check config.js) */
   /**
-   * Then by extracting from request the access_token given after logging API (It could be at URL, at Body from request, or Header from request)
+   * Then by extracting from request the 
+   * access_token given after logging API  
+   * (It could be at URL, at Body from request, or Header from request)
    */
   jwtFromRequest: function (req) {
     var token = null
     if (req) {
       req.rawHeaders.map((header, index) => {
+        /**
+         * NOTE: This generator sets JWT token at header (Proxy-Authorization Bearer token) format 
+         */
         if (header == 'proxy-authorization') { token = (req.rawHeaders[(index + 1)]).split('Bearer ').join('') }
       })
     }

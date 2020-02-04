@@ -4,6 +4,7 @@
 
 
 
+
 ## Node.JS amazinGenerator  [![NPM version][npm-image]][npm-url] 
 
   
@@ -28,6 +29,8 @@ This project has integrated this feautres:
  - [ApiDoc Generator](https://www.npmjs.com/package/apidoc): from JSDoc conventions generate an HTML page to see it.
  - [JSDoc](https://jsdoc.app/): Conventions to write docs at JS files.
  - [Mocha](https://www.npmjs.com/package/mocha) To test files inside `test` folder with extension **.spec**
+ - [Factorygirl](https://www.npmjs.com/package/factory-girl) For creating factories design pattern generator for test using fakers.
+ - [Faker](https://www.npmjs.com/package/faker) For generating fakes vals to build test using Factories.
  - [Sequelize Auto](https://www.npmjs.com/package/sequelize-auto): This is just working through hard coded package.json, must be integrated with SDK of this lib, to create models inside the folder of the entity scope (As DAO, RESTful, MVC pattern should be) 
  - [Bodymen](https://www.npmjs.com/package/bodymen): As middleware on ExpressJS fetchings to validate body data structure ( Check docs )
  - [Body Parser](https://www.npmjs.com/package/body-parser): To admit urlencoded and JSON type on ExpressJS (Check docs)
@@ -39,7 +42,8 @@ This project has integrated this feautres:
 
 Crate a directory like myprojectdirectory and then enter it by following code (replace with your project name of course)
 ```bash
-mkdir myprojectdirectory; cd myprojectdirectory
+mkdir myprojectdirectory 
+cd myprojectdirectory
 ```
 Then init an npm project skipping all options with enter (this is just to get project)
 ```bash
@@ -49,20 +53,26 @@ Then install nodejsamazingenerator through npm like this
 ```bash
 npm i nodejsamazingenerator
 ```
-***IMPORTANT: create your .env file by following .env.example file***
-***and add your vars at config/config.json to let Sequlize CLI connect db or project will not work***
+Run this command to fill project information
+```bash
+npm run init:project
+```
+Finally just run to deploy server. (This will follow .env variables) 
+```bash
+npm run dev:rollback
+```
 
-Finally by running `npm run start-with:reset-db-dev`  server will be deployed following ***.env*** configurations. You can test methods with insomnia or something like that :)
+
 
 ## Usage
    
 Last update let developers build full api entity scope (check folder structure below at myentity folder inside api folder):
 ```bash
-npm run generate:model --name myentity --attr nombre:string,apellido:string,correo:string
+npm run model --name myentity --attr nombre:string,apellido:string,correo:string
 ```
 Note that myentity should be as many models as your project has. Repeat as many times you need. Once you finished, run this command to create your database, and migrate your whole list of models created.
 ```bash
-npm run start-with:reset-db-dev
+npm run dev:rollback
 ```
 
 Generate the whole models documentation by running:
@@ -73,30 +83,30 @@ npm run docs
 
 This project will allow you to build fast a robust backend NodeJS server. following good pattern design as DAO, RESTful and MVC. Commands to remember
 
- - **Create** database from config.js (See docs 4 detail): 
+ - **Create database from config.js (See docs 4 detail):**
 	```bash
-	npm run sequelize db:create --env=test
+	npm run sequelize -- db:create --env development
 	```
 
 
- - **Drop** database from config.js: 
+ - **Drop database from config.js:** 
 	```bash
-	npm run sequelize db:drop --env=test
+	npm run sequelize -- db:drop --env production
 	```
- - **Create model with it migration** (See docs 4 detail): 
+ - **Create new migration (See docs 4 detail):**
 	```bash
-	npm run generate:model --name mymodelname --attr name:string,location:string,email:string
+	npm run sequelize -- migration:generate --name my-migration
 	```
 
- - Run **migrations** on database to create tables (See docs 4 detail): 
+ - **Run migrations on database to create tables (See docs 4 detail):**
 	```bash
-	npm run sequelize db:migrate --env=test
+	npm run sequelize -- db:migrate --env test
 	```
- - Generate server **Docs** following JSdocs conventions: 
+ - **Generate server Docs following JSdocs conventions:** 
 	```bash
 	npm run docs
 	```
- - Run your **test** inside test folder with **.spec** extension on **Mocha**  **Docs** following JSdocs conventions: 
+ - **Run your test inside test folder with .spec extension on Mocha Docs following JSdocs conventions:**
 	```bash
 	npm run test
 	```
@@ -109,19 +119,19 @@ This project will allow you to build fast a robust backend NodeJS server. follow
 	```
 	And then running 	
 	 ```bash 
-	 npm run generate-models-from-db
+	 npm run model:auto
 	 ``` 
- - Start server with reseting all by environment: 
+ - **Start server with reseting all by environment:** 
 
 	  ***for development***
 	```bash 
-	 npm run start-with:reset-db-dev
+	 npm run dev:rollback
 	 ``` 
 
 
 	  ***for production***
 	```bash 
-	 npm run start-with:reset-db-prod
+	 npm run prod:rollback
 	 ``` 
 
 
@@ -130,7 +140,7 @@ This project will allow you to build fast a robust backend NodeJS server. follow
 
 	  ***for testing***
 	```bash 
-	 npm run start-with:reset-db-test
+	 npm run test:rollback
 	 ``` 
   
 
@@ -188,7 +198,7 @@ backnodejs/
 	│ 	├─ index.js
 	│ 	└─ app.js
 	├─ test/
-	│  └─  mymodel.spec.js
+	│  └─  sprint.spec.js
 	├─ .babelrc
 	├─ .editorconfig
 	├─ .env
@@ -202,25 +212,13 @@ backnodejs/
 	└─ README.md
 ```
 
-### src/api/
+* **src/api/index.js**: Here is where the API endpoints are added to express router. ***Each API has its own folder***.
+* **src/api/some-endpoint/model.js**: It defines the **data attributes** of the **database** model, it could be coppied to the migration indeed. Also declares a ***Queryman object to be used at validations on controllers***. Finally defines the model with ***Sequelize SDK***
+* **src/api/some-endpoint/controller.js**: This is the API controller file. It defines the main router middlewares which use the API model.
+* **src/api/some-endpoint/index.js**: This is the entry file of the API. It defines the routes using, along other middlewares (like session, validation etc.).
+* **services/**: Here you can put `helpers`, `libraries` and other types of modules which you want to use in your APIs.
 
-Here is where the API endpoints are defined. Each API has ***its own folder***.
 
-#### src/api/some-endpoint/model.js
-
-It defines the **data attributes** of the **database** model, it could be coppied to the migration indeed. Also declares a ***Queryman object to be used at validations on controllers***. Finally defines the model with ***Sequelize SDK***
-
-#### src/api/some-endpoint/controller.js
-
-This is the API controller file. It defines the main router middlewares which use the API model.
-
-#### src/api/some-endpoint/index.js
-
-This is the entry file of the API. It defines the routes using, along other middlewares (like session, validation etc.).
-
-### services/
-
-Here you can put `helpers`, `libraries` and other types of modules which you want to use in your APIs.
 
 
 
@@ -300,30 +298,38 @@ Here you can put `helpers`, `libraries` and other types of modules which you wan
 
 	```javascript
 	/**
-	* Passport configuration for using JWT
-	*/
-	passport.use('token', new  JwtStrategy({
-		secretOrKey:  config.jwtSecret, /** Mainly by giving to it the JWT_SECRET from .env (check config.js) */
-		/**
-		* Then by extracting from request the access_token given after logging API (It could be at URL, at Body from request, or Header from request)
-		*/
-		jwtFromRequest:  ExtractJwt.fromExtractors([
-			ExtractJwt.fromUrlQueryParameter('access_token'),
-			ExtractJwt.fromBodyField('access_token'),
-			ExtractJwt.fromAuthHeaderWithScheme('Bearer')
-	])
-
-	/**
-	* At last, get the user and is added to request as req.user with
-	* done function, that takes the profile info and attaches it on the request object so its available on your callback url as req.user.
-	* ( Read https://hackernoon.com/passportjs-the-confusing-parts-explained-edca874ebead )
-	*/
-	}, ({ id }, done) => {
-	User.findById(id).then((user) => {
-		done(null, user)
-		return  null
-	}).catch(done)
-
+	 * Passport configuration for using JWT
+	 */
+	passport.use('token', new JwtStrategy({
+	  secretOrKey: config.jwtSecret, /** Mainly by giving to it the JWT_SECRET from .env (check config.js) */
+	  /**
+	   * Then by extracting from request the 
+	   * access_token given after logging API  
+	   * (It could be at URL, at Body from request, or Header from request)
+	   */
+	  jwtFromRequest: function (req) {
+	    var token = null
+	    if (req) {
+	      req.rawHeaders.map((header, index) => {
+	        /**
+	         * NOTE: This generator sets JWT token at header (Proxy-Authorization Bearer token) format 
+	         */
+	        if (header == 'proxy-authorization') { token = (req.rawHeaders[(index + 1)]).split('Bearer ').join('') }
+	      })
+	    }
+	    return token
+	  }
+	  /**
+	   * At last, get the user and is added to request as req.user with
+	   * done function, that takes the profile info and attaches it on the request object so its available on your callback url as req.user.
+	   * ( Read  https://hackernoon.com/passportjs-the-confusing-parts-explained-edca874ebead )
+	   */
+	}, async ({ id }, done) => {
+	  const userLogged = await models.user.findOne({ where: { id: id } })
+	  if (userLogged) {
+	    done(null, userLogged)
+	    return null
+	  } else throw 'User id dont match at Databse registers'
 	}))
 
 	```
@@ -401,7 +407,42 @@ Here you can put `helpers`, `libraries` and other types of modules which you wan
 	}
 
 	```
+	An example of using this service is password reset controller as follow code
+	```javascript
+	/**
+	 * This method creates a new passwordreset by using bodymen and other usefull functions from the response service, check it ;)
+	 * @param {*} param0 params from the request, getting it with bodymen
+	 * @param {*} res res object to return to fetcher
+	 * @param {*} next next function from Express to go through the next middleware on the fetch
+	 */
+	import { sendMail } from '../../services/sendgrid'
+	import models from '../../services/sequelize'
+	import consoleColors from '../../utils/console_colors'	
+	import { errorHandler } from '../../utils/error_handler'
+	import { success, notFound } from '../../services/response'
+	export const create = async ({ bodymen: { body } }, res, next) => {
+	  console.log(consoleColors.successConsole, '[SUCCESS] Master and Bodyman middlewares check completed succesfully')
+	  try {
+	    const userFetcher = await models.user.findOne({ where: { email: body.email } })
 
+	    if (userFetcher) {
+	      const newPasswordReset = await models.passwordreset.build({ user_id: userFetcher.id, rest_token: uid(32) })
+	      newPasswordReset.save()
+
+	      if (newPasswordReset) {
+	        const link = `${body.link.replace(/\/$/, '')}/${newPasswordReset.rest_token}`
+	        const mail = await sendMail({ toEmail: userFetcher.email, subject: 'ProPlannerV2 - Password Reset', content: htmlEmailContent(userFetcher.username, link) })
+	        if (mail) {
+	          success(res)({ msj: 'Email sent with status ' + mail[0].statusCode })
+	        } else throw 'Could not send email'
+	      } else throw 'Could not generate your password reset ticket'
+	    } else throw 'User does not exist.'
+	  } catch (err) {
+	    errorHandler(err)
+	    notFound(res)({ msj: err })
+	  }
+	}	
+	```
   
 
 -  **SEQUELIZE**: This *service* has a configuration service at `src/services/sequelize/index.js` file, and it is based on [SequelizeCLI ](https://github.com/sequelize/cli) config file generator. To **avoid writting whole file** it basically works, loading whole models list from project, in Sequelize object cache, which allow to better perfomance at making queries with it.
@@ -476,51 +517,25 @@ Here you can put `helpers`, `libraries` and other types of modules which you wan
 	npx sequelize-cli
 
 	```
-	But this way does not allow developers to use ES6 features, so by running custom command ``` npm run sequelize ``` will execute SequelizeCLI but with babel rules to read ES6 modules features. Then a file located at ``` config/config.json ``` must be configured with local vars if needded.
-
-	```json
-	{
-		"development": {
-			"username": "username",
-			"password": "password",
-			"database": "database",
-			"host": "127.0.0.1",
-			"dialect": "postgres"
-		},
-		"test": {
-		"username": "username",
-			"password": "password",
-			"database": "database",
-			"host": "127.0.0.1",
-			"dialect": "postgres"
-		},
-
-		"production": {
-			"username": "username",
-			"password": "password",
-			"database": "database",
-			"host": "127.0.0.1",
-			"dialect": "postgres"
-		}
-
-	}
-	```
+	But this way does not allow developers to use ES6 features, so by running custom command ``` npm run sequelize --``` will execute SequelizeCLI but with babel rules to read ES6 modules features. 
 
 	Which will be used for commands to make migrations, or create them if needed. Set some seeders and other stuff. 
 	As example something prettier basic as ***create*** the db without getting into the console from DB API...
 	```bash
-	npm run sequelize db:create --env=test
+	npm run sequelize -- db:create --env test
 	```
 	Then to ***drop*** the db just do
 	```bash
-	npm run sequelize db:drop --env=test
+	npm run sequelize -- db:drop --env test
 	```
 	Rembember also to check **.env** file with your vars as:
 
 	```
+	PROJECT_NAME=myproject
 	DB_HOST=dbhost
 	DB_NAME_DEV=dbnamedev
 	DB_NAME_PROD=dbnameprod
+	DB_NAME_TEST=proplannerv2_test
 	DB_PASSWORD=dbpass
 	DB_LOG=dblog
 	DB_PORT=dbport
@@ -531,7 +546,6 @@ Here you can put `helpers`, `libraries` and other types of modules which you wan
 	SENDGRID_KEY=sendgridkey
 	SERVER_PORT=serverport
 	SERVER_IP=serverip
-	SERVER_ENVIRONMENT=serverenvironment
 	```
 
 	  
@@ -539,7 +553,7 @@ Here you can put `helpers`, `libraries` and other types of modules which you wan
 	For creating migrations for example we can use command like this **(remember use - instead of _)**:
 
 	```bash
-	npm run sequelize migration:generate --name my-migration
+	npm run sequelize -- migration:generate --name my-migration
 	```
 
 	This will create your migration with a **timestamp** in the name just to set a flow that would be follow by CLI API.	  
@@ -552,7 +566,7 @@ Here you can put `helpers`, `libraries` and other types of modules which you wan
 
 	```bash
 
-	npm run generate:model --name mymodelname --attr name:string,location:string,email:string
+	npm run model --name mymodelname --attr name:string,location:string,email:string
 
 	```
 
@@ -721,11 +735,11 @@ Here you can put `helpers`, `libraries` and other types of modules which you wan
 	Now running this command will migrate all your migrations...
 
 	```bash
-	npm run sequelize db:migrate --env=test
+	npm run sequelize -- db:migrate --env test
 	```
 	And if you are looking to restart the whole environment, and then start your backend app just run it like this to development
 	```bash
-	npm run start-with:reset-db-dev
+	npm run dev:rollback
 	```
 
 -  **Bodyman**: This lib allows expressJS to filter if data comes as should be on our fetch, declaring as a Schema from Sequelize model, but with other syntaxis :
@@ -791,16 +805,51 @@ Here you can put `helpers`, `libraries` and other types of modules which you wan
 
 	With it, by running ```npm run docs``` will generate the doc, and open it at your default web browser.
   
+-  **FactoryGirl with Faker**: **ON DEV** so this is ***not include on generator*** yet but there are examples on how to build a factory using the ***new service at services/factorygirl/index.js,*** adding a test inside tests folder, and running ***npm run test:rollback*** you can import this factory definition with the Sequelize driver loaded and make your tests !! :)
+
+	
+	```javascript
+	/** Factory lib for JS with adapters for Mongoose ODM or Sequelize ORM */
+	import factoryGirl from 'factory-girl'
+	/** Usefull functions from JS */
+	import bluebird from 'bluebird'
+
+	/** with Factory, we bascially get factory instance, then to allow asyn/await features we promosify the instance */
+	const factory = new factoryGirl.Factory().promisify(bluebird)
+
+	/** This case we use Sequelize */
+	const adapter = new factoryGirl.SequelizeAdapter()
+
+	/** Set adapter and export instance as default */
+	factory.setAdapter(adapter)
+	export default factory
+	```
+	
+	Then a factory looks like follow:
+	```javascript
+	import factory from '../../services/factorygirl'
+	import models from '../../services/sequelize'
+	import faker from 'faker'
+
+	/**
+	 * For generating fakers strategies check the API (https://www.npmjs.com/package/faker)
+	 * Description: Generator use as default follow: 
+	 *  DataTypes.STRING: faker.lorem.sentence()
+	 *  DataTypes.INTEGER: faker.random.number()
+	 *  DataTypes.DATE: Date.now()
+	 * Rembember that is correct as well to build object with params to change this default
+	 * by building factory as factory.build('passwordreset', { some_ttr: some_other_val }, callback)
+	 *
+	 */
+	factory.define('passwordreset', models.passwordreset, {
+	  user_id: () => faker.random.number(),
+	  rest_token: () => faker.lorem.sentence(),
+	  created_at: () => Date.now()
+	})
+
+	export default factory
+	```
   
-## TODO list
-Follow list is a pending goals list to do (PR are welcome)
- * Generate test files for mocha inside test folder with .spec.js extension
- * Add --mode flag to command whit enum likes 'single' for, actual working of generator, and 'massive' followed by a models.json that will be added in future versions of this package.
- * Add to Readme.md a section of examples, which could have images with how to fetch generated API, through Postman, insomnia or Advanced Restful client as a fetching tool
- * Add validations to command when user dont use it as he should.
- * Update sendgrid section with pass reset example
- * Add init:project as npm command, to configure básics PROJECT config to scaffold it. (project name, db credentials, credentialsbyenv boolean, ando other info)
- * Apply factory model to use fakers at test as follow https://labs.chiedo.com/post/testing-a-node-js-rest-api-with-mocha-and-chai/ (on dev check services/factorygirl/index.js and each .factory.js extension entity file )
 
 ## License
 

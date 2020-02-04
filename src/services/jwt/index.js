@@ -15,7 +15,6 @@ const jwtVerify = Promise.promisify(jwt.verify)
  * @param {*} method method to sign in at platform, usually jwt secret method
  */
 export const sign = (id, options, method = jwtSign) => {
-  console.log('Signing in with JWT_SECRET = ', config.jwtSecret)
   return method({ id }, config.jwtSecret, options)
 }
 

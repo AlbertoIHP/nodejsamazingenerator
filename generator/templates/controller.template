@@ -7,6 +7,7 @@ import { errorHandler } from '../../utils/error_handler'
 export const index = async ({ querymen: { query, select, cursor } }, res, next) => {
   try {
     const $modelname$s = await models.$modelname$.findAll()
+    res.status(200).send({ $modelname$s: $modelname$s })
     success(res)({ $modelname$s: $modelname$s })
   } catch (err) {
     errorHandler(err)
@@ -37,6 +38,7 @@ export const create = async ({ bodymen: { body } }, res, next) => {
     const new$modelname$ = await models.$modelname$.build(body)
     if (new$modelname$) {
       await new$modelname$.save()
+      console.log(new$modelname$.password)
       if (success(res, 200)(new$modelname$)) {
         console.log(consoleColors.statusConsole, '[STATUS] Returned res succesfully to fetcher')
       } else {
