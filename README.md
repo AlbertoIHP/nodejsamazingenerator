@@ -849,6 +849,15 @@ backnodejs/
 
 	export default factory
 	```
+
+## TODO list
+Follow list is a pending goals list to do (PR are welcome)
+ * Generate test files for mocha inside test folder with .spec.js extension
+ * Add --mode flag to command whit enum likes 'single' for, actual working of generator, and 'massive' followed by a models.json that will be added in future versions of this package.
+ * Add to Readme.md a section of examples, which could have images with how to fetch generated API, through Postman, insomnia or Advanced Restful client as a fetching tool
+ * Add validations to command when user dont use it as he should.
+ * ***On dev***Add init:project as npm command, to configure básics PROJECT config to scaffold it. (project name, db credentials, credentialsbyenv boolean, ando other info)
+ * ***On dev*** Apply factory model to use fakers at test as follow https://labs.chiedo.com/post/testing-a-node-js-rest-api-with-mocha-and-chai/ (on dev check services/factorygirl/index.js and each .factory.js extension entity file )
   
 
 ## License
