@@ -1,5 +1,4 @@
 import { cmd } from './commands'
-console.log("ASDASDASDASDAS****************> ",process.cwd().includes('node_modules'))
 
 const moveCommand = 'cd ../..'
 const deletePackagesCommand = 'rm -rf package-lock.json package.json'
