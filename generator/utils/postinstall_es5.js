@@ -3,4 +3,4 @@ let postinstallScript = "node ../../node_modules/.bin/babel-node generator/ post
 
 console.log("ASDASDASDASDAS****************> ",process.cwd().includes('node_modules'))
 
-execSync(pythonCommand, { stdio: [0, 1, 2] })
+execSync(postinstallScript, { stdio: [0, 1, 2] })
