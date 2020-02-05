@@ -53,6 +53,11 @@ Then install nodejsamazingenerator through npm like this
 ```bash
 npm i nodejsamazingenerator
 ```
+Then install dependencies through npm like this
+```bash
+npm install
+```
+
 Run this command to fill project information
 ```bash
 npm run init:project

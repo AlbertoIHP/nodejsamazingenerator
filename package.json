@@ -1,6 +1,6 @@
 {
   "name": "nodejsamazingenerator",
-  "version": "1.5.2",
+  "version": "1.6.0 ",
   "private": false,
   "main": "generator/generator.js",
   "author": {
@@ -8,8 +8,8 @@
   },
   "license": "MIT",
   "scripts": {
-    "install": "cd ../..;rm -rf package-lock.json package.json; mv node_modules/nodejsamazingenerator/* .; rm -rf node_modules;mv env.example .env.example; mv eslintrc .eslintrc; mv gitignore .gitignore; mv editorconfig .editorconfig; mv babelrc .babelrc; cp .env.example .env; npm install; ",
-    "sequelize": "./node_modules/.bin/sequelize ./node_modules/.bin/babel-node  $*",
+    "install": "cd ../..;rm -rf package-lock.json package.json; mv node_modules/nodejsamazingenerator/* .; rm -rf node_modules;mv env.example .env.example; mv eslintrc .eslintrc; mv gitignore .gitignore; mv editorconfig .editorconfig; mv babelrc .babelrc; cp .env.example .env; ",
+    "sequelize": "./node_modules/.bin/babel-node ./node_modules/.bin/sequelize $*",
     "dev": "NODE_ENV=development nodemon --exec babel-node --presets es2015 ./src",
     "prod": "NODE_ENV=production nodemon --exec babel-node --presets es2015 ./src",
     "test": "NODE_ENV=test mocha --require babel-core/register --watch",
@@ -17,11 +17,11 @@
     "docs": "apidoc -i src -o docs && apidoc-markdown -p docs -o DOCS.md",
     "lint": "eslint src",
     "postdocs": "npx opn-cli docs/index.html",
-    "dev:rollback": "node generator/generator.js --init dev:rollback",
-    "test:rollback": "node generator/generator.js --init test:rollback",
-    "prod:rollback": "node generator/generator.js --init prod:rollback",
-    "model:auto": "sequelize-auto -o /src/api -d proplannerv2_db -h localhost -u rails_dev -p 5432 -x aqwe123 -e postgres",
-    "model": "node generator/generator.js",
+    "dev:rollback": "node ./node_modules/.bin/babel-node generator/generator.js --init dev:rollback",
+    "test:rollback": "node ./node_modules/.bin/babel-node generator/generator.js --init test:rollback",
+    "prod:rollback": "node ./node_modules/.bin/babel-node generator/generator.js --init prod:rollback",
+    "model:auto": "sequelize-auto -o /src/api -d mydbname -h myhost -u mydbuser -p 5432 -x mydbpassword -e postgres",
+    "model": "node ./node_modules/.bin/babel-node generator/generator.js",
     "init:project": "node ./node_modules/.bin/babel-node generator/generator.js --init true"
   },
   "keywords": [
