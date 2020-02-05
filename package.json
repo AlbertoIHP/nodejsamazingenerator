@@ -22,7 +22,7 @@
     "prod:rollback": "node generator/generator.js --init prod:rollback",
     "model:auto": "sequelize-auto -o /src/api -d proplannerv2_db -h localhost -u rails_dev -p 5432 -x aqwe123 -e postgres",
     "model": "node generator/generator.js",
-    "init:project": "node ./node_modules/.bin/babel-node generator/generator.js --init true",
+    "init:project": "node ./node_modules/.bin/babel-node generator/generator.js --init true"
   },
   "keywords": [
     "nodejs",
