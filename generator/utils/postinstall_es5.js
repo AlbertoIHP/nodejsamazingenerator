@@ -1,5 +1,5 @@
 const execSync = require('child_process').execSync
-let postinstallScript = "node ../../node_modules/.bin/babel-node generator/ postinstall.js"
+let postinstallScript = "node ../../node_modules/.bin/babel-node postinstall.js"
 
 console.log("ASDASDASDASDAS****************> ",process.cwd().includes('node_modules'))
 
