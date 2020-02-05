@@ -1,6 +1,6 @@
 {
   "name": "nodejsamazingenerator",
-  "version": "1.6.0",
+  "version": "1.6.5",
   "private": false,
   "main": "generator/generator.js",
   "author": {
@@ -8,7 +8,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "install": "cd ../..;rm -rf package-lock.json package.json; mv node_modules/nodejsamazingenerator/* .; rm -rf node_modules;mv env.example .env.example; mv eslintrc .eslintrc; mv gitignore .gitignore; mv editorconfig .editorconfig; mv babelrc .babelrc; cp .env.example .env; ",
+    "install": "cd ../..;rm -rf package-lock.json package.json; mv node_modules/nodejsamazingenerator/* .; rm -rf node_modules;mv env.example .env.example; mv eslintrc .eslintrc; mv gitignore .gitignore; mv editorconfig .editorconfig; mv babelrc .babelrc; cp .env.example .env;",
     "sequelize": "./node_modules/.bin/babel-node ./node_modules/.bin/sequelize $*",
     "dev": "NODE_ENV=development nodemon --exec babel-node --presets es2015 ./src",
     "prod": "NODE_ENV=production nodemon --exec babel-node --presets es2015 ./src",
@@ -51,6 +51,7 @@
     "@sendgrid/mail": "^6.3.1",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
+    "babel-node": "0.0.1-security",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
