@@ -15,7 +15,7 @@ basePath = basePath.split('/node_modules/nodejsamazingenerator')[0]
 console.log("BASE: ",basePath)
 const deletePackagesCommand = 'rm -rf ' + basePath + '/package.json ' + basePath + '/package-lock.json'
 const transferNodeModulesPackageCommand = 'mv ' + basePath + '/node_modules/nodejsamazingenerator/* '+basePath
-const createDotFilesCommand = 'mv ' + basePath + '/env.example ' + basePath + '/.env.example; mv ' + basePath + '/eslintrc ' + basePath + '/.eslintrc; mv ' + basePath + '/gitignore ' + basePath + '/.gitignore; mv ' + basePath + '/editorconfig ' + basePath + '/.editorconfig; mv ' + basePath + '/babelrc ' + basePath + '/.babelrc; cp ' + basePath + '/.env.example ' + basePath + '/.env'
+const createDotFilesCommand = 'mv ' + basePath + '/env.example ' + basePath + '/.env.example; mv ' + basePath + '/eslintrc ' + basePath + '/.eslintrc; mv ' + basePath + '/gitignore ' + basePath + '/.gitignore; mv ' + basePath + '/editorconfig ' + basePath + '/.editorconfig; mv ' + basePath + '/babelrc ' + basePath + '/.babelrc'
 const copyPackageJsonCommand = 'rm -rf ' + basePath + '/package.json; cp ' + basePath + '/generator/templates/package.template ' + basePath + '/package.json'
 const pythonInitCommand = 'python ' + basePath + '/generator/init_project.py'
 
