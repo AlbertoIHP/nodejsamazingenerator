@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": false,
   "author": {
-    "name": "$authorname$"
+    "name": "Alberto Herrera Poza"
   },
   "license": "MIT",
   "scripts": {
@@ -40,7 +40,7 @@
     "docs",
     "generate",
     "amazing"
-  ],,
+  ],
   "dependencies": {
     "@sendgrid/mail": "^6.3.1",
     "babel-cli": "^6.26.0",

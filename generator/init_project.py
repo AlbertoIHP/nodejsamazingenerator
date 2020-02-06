@@ -82,7 +82,7 @@ envs.append('SERVER_PORT=' + serverPort + '\n')
 
 
 ##Server default email
-serverDefaultEmail = raw_input("     > Please enter your server default email (Enter for default):  no-reply@"+projectName+".com): ")
+serverDefaultEmail = raw_input("     > Please enter your server default email (Enter for default:  no-reply@"+projectName+".com): ")
 if(serverDefaultEmail == ''):
     serverDefaultEmail = "no-reply@" + projectName +".com"
 envs.append('DEFAULT_EMAIL_ALIAS=' + serverDefaultEmail + '\n')
@@ -94,7 +94,7 @@ if(serverSendgridKey == ''):
 envs.append('SENDGRID_KEY=' + serverSendgridKey + '\n')
 
 ##Server Logging
-serverLog = raw_input("     > Want to log server(Enter for default: true):")
+serverLog = raw_input("     > Want to see BD queries on server log(Enter for default: true):")
 if(serverLog == ''):
     serverLog = 'true'
 envs.append('DB_LOG=' + serverLog + '\n')
@@ -103,8 +103,7 @@ envs.append('DB_LOG=' + serverLog + '\n')
 serverJwt = raw_input("     > Which is your JWT key this will be encode to base64 string (Enter for default: jwtsecret):")
 if(serverJwt == ''):
     serverJwt = 'jwtsecret'
-serverJwt = serverJwt.encode('ascii')
-serverJwt = base64.b64encode(serverJwt)
+serverJwt = serverJwt + serverJwt + serverJwt + '12345678910'+'abcdefghij' 
 serverJwt = serverJwt.encode('ascii')
 serverJwt = base64.b64encode(serverJwt)
 envs.append('JWT_SECRET=' + serverJwt + '\n')
@@ -113,19 +112,63 @@ envs.append('JWT_SECRET=' + serverJwt + '\n')
 serverMasterSecret = raw_input("     > Which is your Master key this will be encode to base64 string (Enter for default: mymasterkey):")
 if(serverMasterSecret == ''):
     serverMasterSecret = 'mymasterkey'
-
+serverMasterSecret = serverMasterSecret + serverMasterSecret + serverMasterSecret + '12345678910'+'abcdefghij' 
 serverMasterSecret = serverMasterSecret.encode('ascii')
-serverMasterSecret = base64.b64encode(serverMasterSecret)
-serverMasterSecret = serverMasterSecret.encode('ascii')
-serverMasterSecret = base64.b64encode(serverMasterSecret)
+serverMasterSecret = base64.b64encode( serverMasterSecret )
 envs.append('MASTER_KEY=' + serverMasterSecret + '\n')
 
-with open(os.getcwd() + '/.env', 'w') as the_file:
+finalPath = os.getcwd()
+finalPath = finalPath.split('/node_modules/nodejsamazingenerator')
+finalPath = finalPath[0]
+
+print "[POST INSTALL] Saving .env file to path: " + finalPath + '/.env'
+with open(finalPath + '/.env', 'w') as the_file:
     the_file.write("".join(envs))
     the_file.close()
     done = True
 
 print "Getting from CLI vars to set .env file :) on devw"
+
+
+newFileContent = list()
+done = False
+packageTemplatePath = finalPath + '/package.json'
+f = open(packageTemplatePath, 'r')
+for line in f:
+    if ( '$projectname$' in line ):
+        newFileContent.append(string.replace(line, '$projectname$', projectName))
+    else:
+        newFileContent.append(line)
+newFileContent = "".join(newFileContent)
+
+with open(packageTemplatePath, 'w') as the_file:
+    the_file.write(newFileContent)
+    the_file.close()
+    done = True
+
+f.close()
+
+
+
+newFileContent = list()
+done = False
+apidocjsontemplate = finalPath + '/apidoc.json'
+f = open(apidocjsontemplate, 'r')
+for line in f:
+    if ( '$projectname$' in line ):
+        newFileContent.append(string.replace(line, '$projectname$', projectName))
+    elif( '$serverip$:$serverport$' in line):
+        newFileContent.append(string.replace(line, '$serverip$:$serverport$', serverIp + ':' + serverPort))
+    else:
+        newFileContent.append(line)
+newFileContent = "".join(newFileContent)
+
+with open(apidocjsontemplate, 'w') as the_file:
+    the_file.write(newFileContent)
+    the_file.close()
+    done = True
+
+f.close()
 
 
 print WARNING + '  *******       ***********************          *******'
