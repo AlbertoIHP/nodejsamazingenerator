@@ -1,0 +1,1 @@
+print "deberia ejecutar npm run init para fillear .env y package.json"

@@ -9,10 +9,20 @@ const cmd = function(command) {
       console.log(errorConsole, 'ERROR:', JSON.stringify(err))
     }
   }
-const moveCommand = 'cd ../..'
-const deletePackagesCommand = 'rm -rf package-lock.json package.json'
-const transferNodeModulesPackageCommand = 'mv node_modules/nodejsamazingenerator/* .'
-const deleteNodeModulesCommand = 'rm -rf node_modules'
-const createDotFilesCommand = 'mv env.example .env.example; mv eslintrc .eslintrc; mv gitignore .gitignore; mv editorconfig .editorconfig; mv babelrc .babelrc; cp .env.example .env'
 
-cmd(moveCommand + ';' + deleteNodeModulesCommand + ';' + transferNodeModulesPackageCommand + ';' +  deleteNodeModulesCommand + ';' + createDotFilesCommand)
+const basePath = process.cwd() 
+console.log("BASE: ",basePath)
+const deletePackagesCommand = 'rm -rf ' + basePath + '/package.json ' + basePath + '/package-lock.json'
+const transferNodeModulesPackageCommand = 'mv ' + basePath + '/node_modules/nodejsamazingenerator/* '+basePath
+const createDotFilesCommand = 'mv ' + basePath + '/env.example ' + basePath + '/.env.example; mv ' + basePath + '/eslintrc ' + basePath + '/.eslintrc; mv ' + basePath + '/gitignore ' + basePath + '/.gitignore; mv ' + basePath + '/editorconfig ' + basePath + '/.editorconfig; mv ' + basePath + '/babelrc ' + basePath + '/.babelrc; cp ' + basePath + '/.env.example ' + basePath + '/.env'
+const copyPackageJsonCommand = 'cp ' + basePath + '/generator/templates/package.template ' + basePath + '/package.json'
+
+console.log("[POST INSTALL] Deleting package.json and package-lock.json.............")
+cmd(deletePackagesCommand)
+
+console.log("[POST INSTALL] Copying amazinGenerator files.............")
+cmd(transferNodeModulesPackageCommand)
+console.log("[POST INSTALL] Generating conf files (dot files).............")
+cmd(createDotFilesCommand)
+console.log("[POST INSTALL] Creating new package.json with amazinGenerator.............")
+cmd(copyPackageJsonCommand)
