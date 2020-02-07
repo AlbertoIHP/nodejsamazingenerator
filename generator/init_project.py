@@ -132,8 +132,8 @@ print "Getting from CLI vars to set .env file :) on devw"
 
 newFileContent = list()
 done = False
-packageTemplatePath = finalPath + '/package.json'
-isLockPackageExist = finalPath + '/package-lock.json'
+packageTemplatePath = finalPath + '/generator/templates/package.template'
+finalPackagePath = finalPath + '/package.json'
 f = open(packageTemplatePath, 'r')
 for line in f:
     if ( '$projectname$' in line ):
@@ -142,7 +142,7 @@ for line in f:
         newFileContent.append(line)
 newFileContent = "".join(newFileContent)
 
-with open(packageTemplatePath, 'w') as the_file:
+with open(finalPackagePath, 'w') as the_file:
     the_file.write(newFileContent)
     the_file.close()
     done = True
@@ -153,7 +153,8 @@ f.close()
 
 newFileContent = list()
 done = False
-apidocjsontemplate = finalPath + '/apidoc.json'
+apidocjsontemplate = finalPath + '/generator/templates/apidoc.template'
+finalApidocpath = finalPath + '/apidoc.json'
 f = open(apidocjsontemplate, 'r')
 for line in f:
     if ( '$projectname$' in line ):
@@ -164,7 +165,7 @@ for line in f:
         newFileContent.append(line)
 newFileContent = "".join(newFileContent)
 
-with open(apidocjsontemplate, 'w') as the_file:
+with open(finalApidocpath, 'w') as the_file:
     the_file.write(newFileContent)
     the_file.close()
     done = True
@@ -177,3 +178,4 @@ print OKGREEN + ' **********       ***********************          *******'
 print FAIL + '************       ***********************          *******'
 print HEADER +'************************************************************'
 print RESET
+
