@@ -33,7 +33,7 @@ const config = {
    * As on a webpack config should be, there is some common vars declared
    */
   all: {
-    env: requireProcessEnv('SERVER_ENVIRONMENT') || 'development',
+    env: process.env.NODE_ENV,
     root: path.join(__dirname, '..'),
     port: requireProcessEnv('SERVER_PORT') || 9000,
     ip: requireProcessEnv('SERVER_IP') || '0.0.0.0',
@@ -47,21 +47,20 @@ const config = {
    * And other specific config to specific environments as Production, Development and Test
    */
   test: {
-
-  },
-  development: {
-    mongo: {
+    postgresql: {
       db_user: requireProcessEnv('DB_USER'),
       db_pass: requireProcessEnv('DB_PASSWORD'),
       db_host: requireProcessEnv('DB_HOST'),
       db_port: requireProcessEnv('DB_PORT'),
-      db_name: requireProcessEnv('DB_NAME_DEV'),
+      db_name: requireProcessEnv('DB_NAME_TEST'),
       db_log: requireProcessEnv('DB_LOG'),
-      uri: 'mongodb://' + requireProcessEnv('DB_USER') + ':' + requireProcessEnv('DB_PASSWORD') + '@' + requireProcessEnv('DB_HOST') + ':' + requireProcessEnv('DB_PORT') + '/' + requireProcessEnv('DB_NAME_DEV'),
+      uri: 'postgres://' + requireProcessEnv('DB_USER') + ':' + requireProcessEnv('DB_PASSWORD') + '@' + requireProcessEnv('DB_HOST') + ':' + requireProcessEnv('DB_PORT') + '/' + requireProcessEnv('DB_NAME_TEST'),
       options: {
         debug: true
       }
-    },
+    }
+  },
+  development: {
     postgresql: {
       db_user: requireProcessEnv('DB_USER'),
       db_pass: requireProcessEnv('DB_PASSWORD'),
@@ -76,28 +75,14 @@ const config = {
     }
   },
   production: {
-    ip: process.env.IP || undefined,
-    port: process.env.PORT || 8080,
-    mongo: {
-      db_user: requireProcessEnv('DB_USER'),
-      db_pass: requireProcessEnv('DB_PASSWORD'),
-      db_host: requireProcessEnv('DB_HOST'),
-      db_port: requireProcessEnv('DB_PORT'),
-      db_name: requireProcessEnv('DB_NAME_PROD'),
-      db_log: requireProcessEnv('DB_LOG'),
-      uri: 'mongodb://' + requireProcessEnv('DB_USER') + ':' + requireProcessEnv('DB_PASSWORD') + '@' + requireProcessEnv('DB_HOST') + ':' + requireProcessEnv('DB_PORT') + '/' + requireProcessEnv('DB_NAME_PROD'),
-      options: {
-        debug: false
-      }
-    },
     postgresql: {
-      db_user: requireProcessEnv('DB_USER'),
-      db_pass: requireProcessEnv('DB_PASSWORD'),
-      db_host: requireProcessEnv('DB_HOST'),
-      db_port: requireProcessEnv('DB_PORT'),
-      db_name: requireProcessEnv('DB_NAME_PROD'),
-      db_log: requireProcessEnv('DB_LOG'),
-      uri: 'postgres://' + requireProcessEnv('DB_USER') + ':' + requireProcessEnv('DB_PASSWORD') + '@' + requireProcessEnv('DB_HOST') + ':' + requireProcessEnv('DB_PORT') + '/' + requireProcessEnv('DB_NAME_PROD'),
+      db_user: process.env.DB_USER,
+      db_pass: process.env.DB_PASSWORD,
+      db_host: process.env.DB_HOST,
+      db_port: process.env.DB_PORT,
+      db_name: process.env.DB_NAME_PROD,
+      db_log: process.env.DB_LOG,
+      uri: 'postgres://' + process.env.DB_USER + ':' + process.env.DB_PASSWORD + '@' + process.env.DB_HOST + ':' + process.env.DB_PORT + '/' + process.env.DB_NAME_PROD,
       options: {
         debug: false
       }
