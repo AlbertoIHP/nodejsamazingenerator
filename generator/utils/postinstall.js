@@ -6,7 +6,7 @@ const cmd = function(command) {
     try {
       execSync(command, { stdio: [0, 1, 2] })
     } catch (err) {
-      console.log(errorConsole, 'ERROR:', JSON.stringify(err))
+      console.log('ERROR:', JSON.stringify(err))
     }
   }
 

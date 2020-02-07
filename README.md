@@ -3,9 +3,7 @@
 
 
 
-
-
-## Node.JS amazinGenerator  [![NPM version][npm-image]][npm-url] 
+# NodeJS amazinGenerator [![NPM version][npm-image]][npm-url] 
 
   
 
@@ -14,8 +12,7 @@
   
 
 Several changes about this both project, were maked by developer team. However many thanks to this both developers by creating both projects as open source code :)
-  
-   # Features
+
 
 This project has integrated this feautres:
 
@@ -29,7 +26,7 @@ This project has integrated this feautres:
  - [ApiDoc Generator](https://www.npmjs.com/package/apidoc): from JSDoc conventions generate an HTML page to see it.
  - [JSDoc](https://jsdoc.app/): Conventions to write docs at JS files.
  - [Mocha](https://www.npmjs.com/package/mocha) To test files inside `test` folder with extension **.spec**
- - [Factorygirl](https://www.npmjs.com/package/factory-girl) For creating factories design pattern generator for test using fakers.
+ - [Factorygirl](https://www.npmjs.com/package/factory-girl) For creating factories design pattern generator for test using fakers and random seeding (Auto generated !!).
  - [Faker](https://www.npmjs.com/package/faker) For generating fakes vals to build test using Factories.
  - [Sequelize Auto](https://www.npmjs.com/package/sequelize-auto): This is just working through hard coded package.json, must be integrated with SDK of this lib, to create models inside the folder of the entity scope (As DAO, RESTful, MVC pattern should be) 
  - [Bodymen](https://www.npmjs.com/package/bodymen): As middleware on ExpressJS fetchings to validate body data structure ( Check docs )
@@ -67,7 +64,8 @@ npm run dev:rollback
 
 ## Usage
    
-Last update let developers build full api entity scope (check folder structure below at myentity folder inside api folder):
+Last update let developers build full api entity scope (check folder structure below at myentity folder inside api folder)
+At now we just support datatypes like STRING,  INTEGER, FLOAT, DATE, BOOLEAN, JSON: 
 ```bash
 npm run model --name myentity --attr nombre:string,apellido:string,correo:string
 ```
@@ -164,9 +162,12 @@ backnodejs/
 	├─ config/
 	│  └─ config.json
 	├─ migrations/
+	│  ├─ 20200130214923-create-user-migration.js
+	│  ├─ 20200202225008-create-passwordreset-model.js
 	│  └─ timestamp-create-mymodel-migration.js
 	├─ seeders/
-	│  └─ timestamp-create-mymodel-seeder.js
+	│  ├─ 20200207140211-user-seed.js
+	│  └─ timestamp-myentity-seed.js
 	├─ src/
 	│ 	├─ api/
 	│ 	│  ├─ auth/
@@ -224,10 +225,10 @@ backnodejs/
 ```
 
 * **src/api/index.js**: Here is where the API endpoints are added to express router. ***Each API has its own folder***.
-* **src/api/myentity/myentity.model.js**: It defines the **data attributes** of the **database** model, it could be coppied to the migration indeed. Also declares a ***Queryman object to be used at validations on controllers***. Finally defines the model with ***Sequelize SDK***
+* **src/api/myentity/myentity.model.js**: It defines the **data attributes** of the **database** model. Also declares a ***Queryman object to be used at validations on controllers***. Finally defines the model with ***Sequelize SDK***
 * **src/api/myentity/myentity.controller.js**: This is the API controller file. It defines the main router middlewares which use the API model.
 * **src/api/myentity/myentity.helpers.js**: This file saves functions usefull for data access queries as getting an average from numbers or something like that :)
-* **src/api/myentity/myentity.factory.js**: This is the entry file of the API. It defines the routes using, along other middlewares (like session, validation etc.).
+* **src/api/myentity/myentity.factory.js**: This file is as it name say, a factory of fake data to build in real time, by default the amount of fake data is 100. You can edit it by going to this file. Also can be use a test. However Factory is a good pattern design used by most of frameworks. So we decide to integrate it on the generated files.
 * **src/api/myentity/myentity.dao.js**: A multiple Data Object Model use must be here, example clearly is relationship queries.
 * **src/api/myentity/index.js**: This is the entry file of the API. It defines the routes using, along other middlewares (like session, validation etc.).
 * **services/**: Here you can put `helpers`, `libraries` and other types of modules which you want to use in your APIs.
@@ -869,7 +870,6 @@ Follow list is a pending goals list to do (PR are welcome)
  * Add --mode flag to command whit enum likes 'single' for, actual working of generator, and 'massive' followed by a models.json that will be added in future versions of this package.
  * Add to Readme.md a section of examples, which could have images with how to fetch generated API, through Postman, insomnia or Advanced Restful client as a fetching tool
  * Add validations to command when user dont use it as he should.
- * ***On dev*** Apply factory model to use fakers at test as follow https://labs.chiedo.com/post/testing-a-node-js-rest-api-with-mocha-and-chai/ (on dev check services/factorygirl/index.js and each .factory.js extension entity file )
   
 
 ## License

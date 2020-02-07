@@ -2,6 +2,8 @@ import sys, os, struct
 from listdirmaker import listDirMaker
 import string
 
+
+print "ASDASDASDASDASDASD"
 ##
 ## Some fancy stuff for generator :) AHP
 ##
@@ -130,7 +132,7 @@ controllerPath = dirpath + '/' + apipath + '/' + modelname + '.controller.js'
 daoPath = dirpath + '/' + apipath + '/' + modelname + '.dao.js'
 helpersPath = dirpath + '/' + apipath + '/' + modelname + '.helpers.js'
 indexPath = dirpath + '/' + apipath + '/index.js'
-factoryPath = dir + '/' + apipath + '/' + modelname + '.factory.js'
+factoryPath = dirpath + '/' + apipath + '/' + modelname + '.factory.js'
 routesIndexPath = dirpath + '/src/api/index.js'
 
 
@@ -231,26 +233,26 @@ print RESET + '      * Factory Path: ' + factoryPath
 
 for index, attr in enumerate(modelattributes):
     if( 'DataTypes.STRING' in attr ):
-        parseJsSequelizeType = [ 'DataTypes.STRING', ': () => faker.lorem.sentence()' ]
+        parseJsSequelizeType = [ 'DataTypes.STRING', ' () => faker.lorem.sentence()' ]
     elif('DataTypes.INTEGER' in attr):
-        parseJsSequelizeType = [ 'DataTypes.INTEGER', ': () => faker.random.number()' ]
+        parseJsSequelizeType = [ 'DataTypes.INTEGER', ' () => faker.random.number()' ]
     elif('DataTypes.FLOAT' in attr):
-        parseJsSequelizeType = [ 'DataTypes.FLOAT', ': () => faker.random.number()' ]
+        parseJsSequelizeType = [ 'DataTypes.FLOAT', ' () => faker.random.number()' ]
     elif('DataTypes.DATE' in attr):
-        parseJsSequelizeType = [ 'DataTypes.DATE', ': () => Date.now()' ]
+        parseJsSequelizeType = [ 'DataTypes.DATE', ' () => Date.now()' ]
     elif('DataTypes.BOOLEAN' in attr):
-        parseJsSequelizeType = [ 'DataTypes.BOOLEAN', ': () => false' ]
+        parseJsSequelizeType = [ 'DataTypes.BOOLEAN', ' () => false' ]
     elif('DataTypes.JSON' in attr):
-        parseJsSequelizeType = [ 'DataTypes.JSON', ': () => { }' ]
+        parseJsSequelizeType = [ 'DataTypes.JSON', ' () => { }' ]
     else:
         raise Exception('Generator just supports DataTypes: STRING,  INTEGER, FLOAT, DATE, BOOLEAN, JSON')
 
 
     replaced = string.replace(attr, parseJsSequelizeType[0], parseJsSequelizeType[1])
     if( (len(modelattributes) - 1) != index ):
-        attrfakerlist.append( attr_name + replaced + ',\n')
+        attrfakerlist.append( replaced )
     else:
-        attrfakerlist.append( attr_name + replaced + '\n')
+        attrfakerlist.append( replaced )
         
 
 
