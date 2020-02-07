@@ -133,6 +133,7 @@ print "Getting from CLI vars to set .env file :) on devw"
 newFileContent = list()
 done = False
 packageTemplatePath = finalPath + '/package.json'
+isLockPackageExist = finalPath + '/package-lock.json'
 f = open(packageTemplatePath, 'r')
 for line in f:
     if ( '$projectname$' in line ):
