@@ -138,6 +138,11 @@ f = open(packageTemplatePath, 'r')
 for line in f:
     if ( '$projectname$' in line ):
         newFileContent.append(string.replace(line, '$projectname$', projectName))
+    elif ( '-d mydbname -h myhost -u mydbuser -p 5432 -x mydbpassword' in line):
+        stringToReplace = '-d mydbname -h myhost -u mydbuser -p 5432 -x mydbpassword'
+        stringToReplacyBy = '-d ' + dbDevName + ' -h ' + dbHost + ' -u ' + dbUsername + ' -p ' + dbPort + ' -x ' + dbPassword
+        finalStringToReplace = string.replace(line, stringToReplace, stringToReplacyBy)
+        newFileContent.append(finalStringToReplace)
     else:
         newFileContent.append(line)
 newFileContent = "".join(newFileContent)
