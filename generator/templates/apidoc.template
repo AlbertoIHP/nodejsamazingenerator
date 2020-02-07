@@ -1,0 +1,7 @@
+{
+    "name": "$projectname$",
+    "version": "0.0.1",
+    "description": "$projectname$ description",
+    "title": "API documentation for $projectname$ software(JSDoc Standard)",
+    "url" : "http://$serverip$:$serverport$"
+}

@@ -2,6 +2,8 @@ import sys, os, struct
 from listdirmaker import listDirMaker
 import string
 
+
+print "ASDASDASDASDASDASD"
 ##
 ## Some fancy stuff for generator :) AHP
 ##
@@ -27,11 +29,13 @@ print '      * API Path: ',apipath
 ##
 dirpath = os.getcwd()
 migrationTemplatePath = str(dirpath + '/generator/templates/migration.template')
+seedTemplatePath = str(dirpath + '/generator/templates/seed.template')
 controllerTemplatePath = str(dirpath + '/generator/templates/controller.template')
 modelTemplatePath = str(dirpath + '/generator/templates/model.template')
 indexTemplatePath = str(dirpath + '/generator/templates/index.template')
 routeTemplatePath = str(dirpath + '/generator/templates/route.template')
 importTemplatePath = str(dirpath + '/generator/templates/import.template')
+factoryTemplatePath = str(dirpath + '/generator/templates/factory.template')
 
 
 print RESET + '      * Dir path: ',dirpath
@@ -78,6 +82,47 @@ print OKGREEN + '      * Migration corrected (ES6): ' + str(done)
 
 
 
+
+
+##
+## With listDirMaker class we can iterate trhough inside of directory, and find migrations
+## to match with the modelname receive from npm run
+##
+seedPath = str(dirpath + '/../seeders').split('../')
+seedPath = "".join(seedPath)
+totalArchivos = listDirMaker(seedPath).getdirList()
+for indice in range(len(totalArchivos)):
+    pathArray = totalArchivos[indice].split('/')
+    seedName = pathArray[ len( pathArray ) - 1]
+    if (modelname in seedName):
+        seedPath = seedPath + "/" + seedName
+        break
+
+print RESET + '      * Seed path: ',seedPath
+newFileContent = list()
+done = False
+f = open(seedTemplatePath, 'r')
+for line in f:
+    if ( '$modelname$' in line ):
+        newFileContent.append(string.replace(line, '$modelname$', modelname))
+    else:
+        newFileContent.append(line)
+newFileContent = "".join(newFileContent)
+
+with open(seedPath, 'w') as the_file:
+    the_file.write(newFileContent)
+    the_file.close()
+    done = True
+
+f.close()
+print OKGREEN + '      * Seed corrected (ES6): ' + str(done)
+
+
+
+
+
+
+
 ##
 ## Define some paths as basic API files
 ##
@@ -87,6 +132,7 @@ controllerPath = dirpath + '/' + apipath + '/' + modelname + '.controller.js'
 daoPath = dirpath + '/' + apipath + '/' + modelname + '.dao.js'
 helpersPath = dirpath + '/' + apipath + '/' + modelname + '.helpers.js'
 indexPath = dirpath + '/' + apipath + '/index.js'
+factoryPath = dirpath + '/' + apipath + '/' + modelname + '.factory.js'
 routesIndexPath = dirpath + '/src/api/index.js'
 
 
@@ -157,6 +203,8 @@ for index, attr in enumerate(modelattributes):
         parseJsSequelizeType = [ 'DataTypes.STRING', 'String' ]
     elif('DataTypes.INTEGER' in attr):
         parseJsSequelizeType = [ 'DataTypes.INTEGER', 'Number' ]
+    elif('DataTypes.FLOAT' in attr):
+        parseJsSequelizeType = [ 'DataTypes.FLOAT', 'Number' ]
     elif('DataTypes.DATE' in attr):
         parseJsSequelizeType = [ 'DataTypes.DATE', 'Date' ]
     elif('DataTypes.BOOLEAN' in attr):
@@ -164,7 +212,7 @@ for index, attr in enumerate(modelattributes):
     elif('DataTypes.JSON' in attr):
         parseJsSequelizeType = [ 'DataTypes.JSON', 'JSON' ]
     else:
-        raise Exception('Generator just supports DataTypes: STRING,  INTEGER, DATE, BOOLEAN, JSON')
+        raise Exception('Generator just supports DataTypes: STRING,  INTEGER, FLOAT, DATE, BOOLEAN, JSON')
     replaced = string.replace(attr, parseJsSequelizeType[0], parseJsSequelizeType[1])
     attr_name = replaced.split(':')[0].split('      ')[ len(replaced.split(':')[0].split('      ')) - 1]
     attr_type = replaced.split(':')[1].split(('\n'))[0]
@@ -172,7 +220,67 @@ for index, attr in enumerate(modelattributes):
         querymanAttributes.append(attr_name + ':' + ' \n   {  \n'+ '       type: ' + attr_type + '\n       required: true \n   }, \n')
     else:
         querymanAttributes.append(attr_name + ':' + ' \n   {  \n'+ '       type: ' + attr_type + ',\n       required: true \n   } \n')
-    
+
+
+
+##
+## (v1.22.0) Now lets cretae factory file... fakers templates for factories
+##
+attrfakerlist = []
+# Let create bodyman structure
+
+print RESET + '      * Factory Path: ' + factoryPath
+
+for index, attr in enumerate(modelattributes):
+    if( 'DataTypes.STRING' in attr ):
+        parseJsSequelizeType = [ 'DataTypes.STRING', ' () => faker.lorem.sentence()' ]
+    elif('DataTypes.INTEGER' in attr):
+        parseJsSequelizeType = [ 'DataTypes.INTEGER', ' () => faker.random.number()' ]
+    elif('DataTypes.FLOAT' in attr):
+        parseJsSequelizeType = [ 'DataTypes.FLOAT', ' () => faker.random.number()' ]
+    elif('DataTypes.DATE' in attr):
+        parseJsSequelizeType = [ 'DataTypes.DATE', ' () => Date.now()' ]
+    elif('DataTypes.BOOLEAN' in attr):
+        parseJsSequelizeType = [ 'DataTypes.BOOLEAN', ' () => false' ]
+    elif('DataTypes.JSON' in attr):
+        parseJsSequelizeType = [ 'DataTypes.JSON', ' () => { }' ]
+    else:
+        raise Exception('Generator just supports DataTypes: STRING,  INTEGER, FLOAT, DATE, BOOLEAN, JSON')
+
+
+    replaced = string.replace(attr, parseJsSequelizeType[0], parseJsSequelizeType[1])
+    if( (len(modelattributes) - 1) != index ):
+        attrfakerlist.append( replaced )
+    else:
+        attrfakerlist.append( replaced )
+        
+
+
+newFileContent = list()
+done = False
+f = open(factoryTemplatePath, 'r')
+for line in f:
+    if ( '$modelname$' in line ):
+        newFileContent.append(string.replace(line, '$modelname$', modelname))
+    elif( '$attrfakerlist$' in line):
+        newFileContent.append(string.replace(line, '$attrfakerlist$', "".join(attrfakerlist)))
+    else:
+        newFileContent.append(line)
+newFileContent = "".join(newFileContent)
+
+with open(factoryPath, 'w') as the_file:
+    the_file.write(newFileContent)
+    the_file.close()
+    done = True
+
+f.close()
+print OKGREEN + '      * Factory created: ' + str(done)
+
+
+
+
+
+
 
 #Just now build an object also for Sequelize
 helper = []
@@ -210,6 +318,12 @@ with open(modelPath, 'w') as the_file:
 
 f.close()
 print OKGREEN + '      * Model created: ' + str(done)
+
+
+
+
+
+
 
 ##
 ## Now lets create index file

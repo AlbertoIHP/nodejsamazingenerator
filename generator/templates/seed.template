@@ -1,0 +1,18 @@
+'use strict'
+import $modelname$Factory from '../src/api/$modelname$/$modelname$.factory'
+
+module.exports = {
+  up: async (queryInterface, Sequelize) => {
+    let $modelname$sArray = []
+    const $modelname$s = await $modelname$Factory.buildMany('$modelname$', 100)
+    $modelname$s.map($modelname$Factory => {
+      $modelname$sArray.push($modelname$Factory.dataValues)
+    })
+    $modelname$sArray = $modelname$sArray.map($modelname$ => { delete $modelname$.id; return $modelname$ })
+    return queryInterface.bulkInsert('$modelname$s', $modelname$sArray, {})
+  },
+
+  down: (queryInterface, Sequelize) => {
+    return queryInterface.bulkDelete('$modelname$s', null, {})
+  }
+}

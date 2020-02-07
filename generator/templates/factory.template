@@ -11,10 +11,8 @@ import faker from 'faker'
  * Rembember that is correct as well to build object with params to change this default
  * by building factory as factory.build('$modelname$', { some_ttr: some_other_val }, callback)
  *
- * For generator: $attrfakerlist$ is list querymanAttributes at generator.py
- * splitted and replaced by templates fakers. Check it by checking generator code base folder :)
  */
-factory.define('user', models.user, {
+factory.define('$modelname$', models.$modelname$, {
   $attrfakerlist$
 })
 

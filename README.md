@@ -3,19 +3,16 @@
 
 
 
-
-
-## Node.JS amazinGenerator  [![NPM version][npm-image]][npm-url] 
+# NodeJS amazinGenerator [![NPM version][npm-image]][npm-url]  [![npm downloads](https://badgen.net/npm/dm/nodejsamazingenerator)](https://www.npmjs.com/package/nodejsamazingenerator)
 
   
 
-**Description:** Powerfull project with some features that could be take as basic, this project has some structure based on generator from [Diego Haz generator](https://github.com/diegohaz/rest) project. Also has some configuration files based on the [juniorhq88 generator](https://github.com/juniorhq88/nodejs-mysql-jwt-express) project.
+**Description:** Powerfull project with some features that could be take as basic, this project has some structure based on generator from [Diego Haz generator](https://github.com/diegohaz/rest) project. Also has some configuration files based on the [juniorhq88 generator](https://github.com/juniorhq88/nodejs-mysql-jwt-express) project. This project helps developers to build FAST a robust environment backend on javascript, using scrum with test based on user stories on the sprint that your project may have. Enjoy :)
 
   
 
 Several changes about this both project, were maked by developer team. However many thanks to this both developers by creating both projects as open source code :)
-  
-   # Features
+
 
 This project has integrated this feautres:
 
@@ -29,7 +26,7 @@ This project has integrated this feautres:
  - [ApiDoc Generator](https://www.npmjs.com/package/apidoc): from JSDoc conventions generate an HTML page to see it.
  - [JSDoc](https://jsdoc.app/): Conventions to write docs at JS files.
  - [Mocha](https://www.npmjs.com/package/mocha) To test files inside `test` folder with extension **.spec**
- - [Factorygirl](https://www.npmjs.com/package/factory-girl) For creating factories design pattern generator for test using fakers.
+ - [Factorygirl](https://www.npmjs.com/package/factory-girl) For creating factories design pattern generator for test using fakers and random seeding (Auto generated !!).
  - [Faker](https://www.npmjs.com/package/faker) For generating fakes vals to build test using Factories.
  - [Sequelize Auto](https://www.npmjs.com/package/sequelize-auto): This is just working through hard coded package.json, must be integrated with SDK of this lib, to create models inside the folder of the entity scope (As DAO, RESTful, MVC pattern should be) 
  - [Bodymen](https://www.npmjs.com/package/bodymen): As middleware on ExpressJS fetchings to validate body data structure ( Check docs )
@@ -49,7 +46,7 @@ Then init an npm project skipping all options with enter (this is just to get pr
 ```bash
 npm init
 ```
-Then install nodejsamazingenerator through npm like this
+Then install nodejsamazingenerator through npm like this. A little questionary will be displayed, fill your envs to make project work. If you are not sure yet about all of this vars. You just can keep default values, and when you were sure about those vars, run ``` npm run init:project ``` and questionary will be display again to re fill it. Remember that this questionary actually rewrite your .env but also apidoc.json and package.json files.
 ```bash
 npm i nodejsamazingenerator
 ```
@@ -58,20 +55,39 @@ Then install dependencies through npm like this
 npm install
 ```
 
-Run this command to fill project information
-```bash
-npm run init:project
-```
 Finally just run to deploy server. (This will follow .env variables) 
 ```bash
 npm run dev:rollback
 ```
 
+## Project already started installation
+First just clone your project from your repo
+```bash
+git clone my-repo-url
+```
 
+Then install dependencies
+```bash
+npm install
+```
+
+Finally configure your environment vars
+```
+npm run init:project
+```
+Start the project and start coding !
+```bash
+npm run dev:rollback
+```
+Or just start it by running
+```bash
+npm run dev
+```
 
 ## Usage
    
-Last update let developers build full api entity scope (check folder structure below at myentity folder inside api folder):
+Last update let developers build full api entity scope (check folder structure below at myentity folder inside api folder)
+At now we just support datatypes like STRING,  INTEGER, FLOAT, DATE, BOOLEAN, JSON: 
 ```bash
 npm run model --name myentity --attr nombre:string,apellido:string,correo:string
 ```
@@ -168,9 +184,12 @@ backnodejs/
 	├─ config/
 	│  └─ config.json
 	├─ migrations/
+	│  ├─ 20200130214923-create-user-migration.js
+	│  ├─ 20200202225008-create-passwordreset-model.js
 	│  └─ timestamp-create-mymodel-migration.js
 	├─ seeders/
-	│  └─ timestamp-create-mymodel-seeder.js
+	│  ├─ 20200207140211-user-seed.js
+	│  └─ timestamp-myentity-seed.js
 	├─ src/
 	│ 	├─ api/
 	│ 	│  ├─ auth/
@@ -180,12 +199,21 @@ backnodejs/
 	│ 	│  │  ├─ user.controller.js
 	│ 	│  │  ├─ user.dao.js
 	│ 	│  │  ├─ user.helpers.js
+	│ 	│  │  ├─ user.factory.js
 	│ 	│  │  ├─ user.model.js
+	│ 	│  │  └─ index.js
+	│ 	│  ├─ passwordreset/
+	│ 	│  │  ├─ passwordreset.controller.js
+	│ 	│  │  ├─ passwordreset.dao.js
+	│ 	│  │  ├─ passwordreset.helpers.js
+	│ 	│  │  ├─ passwordreset.factory.js
+	│ 	│  │  ├─ passwordreset.model.js
 	│ 	│  │  └─ index.js
 	│ 	│  ├─ myentity/
 	│ 	│  │  ├─ myentity.controller.js
 	│ 	│  │  ├─ myentity.dao.js
 	│ 	│  │  ├─ myentity.helpers.js
+	│ 	│  │  ├─ myentity.factory.js
 	│ 	│  │  ├─ myentity.model.js
 	│ 	│  │  └─ index.js
 	│ 	│  └─ index.js
@@ -195,6 +223,7 @@ backnodejs/
 	│ 	│  ├─ mongoose/
 	│ 	│  ├─ passport/
 	│ 	│  ├─ sendgrid/
+	│ 	│  ├─ factorygirl/
 	│ 	│  └─ sequelize/
 	│ 	├─ utils/
 	│ 	│  ├─ console_colors.js
@@ -218,9 +247,12 @@ backnodejs/
 ```
 
 * **src/api/index.js**: Here is where the API endpoints are added to express router. ***Each API has its own folder***.
-* **src/api/some-endpoint/model.js**: It defines the **data attributes** of the **database** model, it could be coppied to the migration indeed. Also declares a ***Queryman object to be used at validations on controllers***. Finally defines the model with ***Sequelize SDK***
-* **src/api/some-endpoint/controller.js**: This is the API controller file. It defines the main router middlewares which use the API model.
-* **src/api/some-endpoint/index.js**: This is the entry file of the API. It defines the routes using, along other middlewares (like session, validation etc.).
+* **src/api/myentity/myentity.model.js**: It defines the **data attributes** of the **database** model. Also declares a ***Queryman object to be used at validations on controllers***. Finally defines the model with ***Sequelize SDK***
+* **src/api/myentity/myentity.controller.js**: This is the API controller file. It defines the main router middlewares which use the API model.
+* **src/api/myentity/myentity.helpers.js**: This file saves functions usefull for data access queries as getting an average from numbers or something like that :)
+* **src/api/myentity/myentity.factory.js**: This file is as it name say, a factory of fake data to build in real time, by default the amount of fake data is 100. You can edit it by going to this file. Also can be use a test. However Factory is a good pattern design used by most of frameworks. So we decide to integrate it on the generated files.
+* **src/api/myentity/myentity.dao.js**: A multiple Data Object Model use must be here, example clearly is relationship queries.
+* **src/api/myentity/index.js**: This is the entry file of the API. It defines the routes using, along other middlewares (like session, validation etc.).
 * **services/**: Here you can put `helpers`, `libraries` and other types of modules which you want to use in your APIs.
 
 
@@ -536,21 +568,21 @@ backnodejs/
 	Rembember also to check **.env** file with your vars as:
 
 	```
-	PROJECT_NAME=myproject
-	DB_HOST=dbhost
-	DB_NAME_DEV=dbnamedev
-	DB_NAME_PROD=dbnameprod
-	DB_NAME_TEST=proplannerv2_test
-	DB_PASSWORD=dbpass
-	DB_LOG=dblog
-	DB_PORT=dbport
-	DB_USER=dbuser
-	DEFAULT_EMAIL_ALIAS=defaultemail
-	JWT_SECRET=jwtsecret
-	MASTER_KEY=masterkey
-	SENDGRID_KEY=sendgridkey
-	SERVER_PORT=serverport
-	SERVER_IP=serverip
+	PROJECT_NAME=myprojectname
+	DB_HOST=mydbhost
+	DB_USER=mydbuser
+	DB_PASSWORD=mydbpassword
+	DB_PORT=mydbport
+	DB_NAME_DEV=mydbdevname
+	DB_NAME_TEST=mydbtestname
+	DB_NAME_PROD=mydbprodname
+	SERVER_IP=myserverip
+	SERVER_PORT=myserverport
+	DEFAULT_EMAIL_ALIAS=myserveremailalias
+	SENDGRID_KEY=mysendgridkey
+	DB_LOG=mydblog
+	JWT_SECRET=myjwtsecret
+	MASTER_KEY=mymasterkey
 	```
 
 	  
@@ -577,7 +609,7 @@ backnodejs/
 
 	  
 
-	Then the model will be created at the path `src/api/mymodelname/mymodelname.model.js` and the migration will be stored at `migrations` folder as `timestamp-create-mymodelname-model.js`. There modify the **.models bug**, add the **modelAttribute standard function** to load the migration as follow example:
+	Then the model will be created at the path `src/api/mymodelname/mymodelname.model.js` and the migration will be stored at `migrations` folder as `timestamp-create-mymodelname-model.js`:
 	```javascript
 	'use strict'
 
@@ -601,7 +633,7 @@ backnodejs/
 
 	```
 
-	Then at the model `src/api/mymodelname/mymodelname.model.js` remember to declare your bodyman Schema to use it as middleware on ExpressJS fetchs, declare the modelAttribute function which should return an Schema from Sequelize standard, and finally the definition of the model from Sequelize SDK as follow example:
+	Then at the model `src/api/mymodelname/mymodelname.model.js` a bodyman Schema will be generated to use it as middleware on ExpressJS fetchs, also will be declared the modelAttribute function which should return an Schema from Sequelize standard, and finally the definition of the model from Sequelize SDK as follow example:
 	```javascript
 	/* jshint indent: 2 */
 
@@ -611,8 +643,7 @@ backnodejs/
 	const roles = [
 	'superadmin',
 	'admin',
-	'masterplan',
-	'lookahead'
+	'user'
 	]
 
 	/**
@@ -796,7 +827,7 @@ backnodejs/
 	  create)
 	```
 
--  **Api Docs**: This lib allow us to create a HTML document with the documentation of our API, using JSDoc standard at our code (**Please document your code**, remember that code is readed by other ***humans***).  Check the apidoc.json file, should look like this (Check more config at https://apidocjs.com/#configuration):
+-  **Api Docs**: This file will be autogenerated. This lib allow us to create a HTML document with the documentation of our API, using JSDoc standard at our code (**Please document your code**, remember that code is readed by other ***humans***).  Check the apidoc.json file, should look like this (Check more config at https://apidocjs.com/#configuration):
 
 	```javascript
 	{
@@ -861,8 +892,6 @@ Follow list is a pending goals list to do (PR are welcome)
  * Add --mode flag to command whit enum likes 'single' for, actual working of generator, and 'massive' followed by a models.json that will be added in future versions of this package.
  * Add to Readme.md a section of examples, which could have images with how to fetch generated API, through Postman, insomnia or Advanced Restful client as a fetching tool
  * Add validations to command when user dont use it as he should.
- * ***On dev***Add init:project as npm command, to configure básics PROJECT config to scaffold it. (project name, db credentials, credentialsbyenv boolean, ando other info)
- * ***On dev*** Apply factory model to use fakers at test as follow https://labs.chiedo.com/post/testing-a-node-js-rest-api-with-mocha-and-chai/ (on dev check services/factorygirl/index.js and each .factory.js extension entity file )
   
 
 ## License

@@ -38,14 +38,16 @@ export const cmd = (command) => {
  * @param {*} shortEnv abbreviation of the environment name (example: prod)
  */
 export const rollback = (fullEnv, shortEnv) => {
-  const dbDropCommand = 'npm run sequelize -- db:drop --env=' + fullEnv
-  const dbCreateCommand = 'npm run sequelize -- db:create --env=' + fullEnv
-  const dbMigrateCommand = 'npm run sequelize -- db:migrate --env=' + fullEnv
+  const dbDropCommand = 'npm run sequelize -- db:drop --env ' + fullEnv
+  const dbCreateCommand = 'npm run sequelize -- db:create --env ' + fullEnv
+  const dbMigrateCommand = 'npm run sequelize -- db:migrate --env ' + fullEnv
+  const dbSeedCommand = 'NODE_ENV=' + fullEnv + ' npm run sequelize -- db:seed:all'
   const startServerCommand = 'npm run ' + shortEnv
 
   cmd(dbDropCommand)
   cmd(dbCreateCommand)
   cmd(dbMigrateCommand)
+  cmd(dbSeedCommand)
   cmd(startServerCommand)
 }
 
@@ -62,9 +64,11 @@ export const rollback = (fullEnv, shortEnv) => {
 export const model = ( dirPath, modelName, modelAttributes) => {
     const mkDirCommand = 'mkdir -p ' + dirPath
     const sequelizeCliCommand = 'npx sequelize-cli --models-path ' + dirPath + ' model:generate --name ' + modelName + '.model --attributes ' + modelAttributes
-    const pythonCommand = 'python generator/generator.py --modelname ' + modelName + ' --dirpath ' + dirPath
+    const sequelizeSeedComand = 'npx sequelize-cli seed:generate --name ' + modelName + '-seed'
+    const pythonCommand = 'generator/generator.py --modelname ' + modelName + ' --dirpath ' + dirPath
 
     cmd(mkDirCommand)
     cmd(sequelizeCliCommand)
+    cmd(sequelizeSeedComand)
     python(pythonCommand)
 }
