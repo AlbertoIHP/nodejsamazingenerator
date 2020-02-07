@@ -65,7 +65,7 @@ export const model = ( dirPath, modelName, modelAttributes) => {
     const mkDirCommand = 'mkdir -p ' + dirPath
     const sequelizeCliCommand = 'npx sequelize-cli --models-path ' + dirPath + ' model:generate --name ' + modelName + '.model --attributes ' + modelAttributes
     const sequelizeSeedComand = 'npx sequelize-cli seed:generate --name ' + modelName + '-seed'
-    const pythonCommand = 'python generator/generator.py --modelname ' + modelName + ' --dirpath ' + dirPath
+    const pythonCommand = 'generator/generator.py --modelname ' + modelName + ' --dirpath ' + dirPath
 
     cmd(mkDirCommand)
     cmd(sequelizeCliCommand)

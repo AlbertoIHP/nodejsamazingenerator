@@ -3,7 +3,6 @@ const factory = require('factory-girl').factory
 const FactoryGirl = require('factory-girl')
 /** Usefull functions from JS */
 
-console.log(factory)
 
 /** This case we use Sequelize */
 const adapter = new FactoryGirl.SequelizeAdapter()
