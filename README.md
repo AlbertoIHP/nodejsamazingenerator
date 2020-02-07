@@ -3,7 +3,7 @@
 
 
 
-# NodeJS amazinGenerator [![NPM version][npm-image]][npm-url] 
+# NodeJS amazinGenerator [![NPM version][npm-image]][npm-url]  [![npm downloads](https://badgen.net/npm/dm/nodejsamazingenerator)](https://www.npmjs.com/package/nodejsamazingenerator)
 
   
 
@@ -60,7 +60,29 @@ Finally just run to deploy server. (This will follow .env variables)
 npm run dev:rollback
 ```
 
+## Project already started installation
+First just clone your project from your repo
+```bash
+git clone my-repo-url
+```
 
+Then install dependencies
+```bash
+npm install
+```
+
+Finally configure your environment vars
+```
+npm run init:project
+```
+Start the project and start coding !
+```bash
+npm run dev:rollback
+```
+Or just start it by running
+```bash
+npm run dev
+```
 
 ## Usage
    
