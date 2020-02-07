@@ -27,6 +27,7 @@ print '      * API Path: ',apipath
 ##
 dirpath = os.getcwd()
 migrationTemplatePath = str(dirpath + '/generator/templates/migration.template')
+seedTemplatePath = str(dirpath + '/generator/templates/seed.template')
 controllerTemplatePath = str(dirpath + '/generator/templates/controller.template')
 modelTemplatePath = str(dirpath + '/generator/templates/model.template')
 indexTemplatePath = str(dirpath + '/generator/templates/index.template')
@@ -73,6 +74,47 @@ with open(migrationPath, 'w') as the_file:
 
 f.close()
 print OKGREEN + '      * Migration corrected (ES6): ' + str(done)
+
+
+
+
+
+
+
+##
+## With listDirMaker class we can iterate trhough inside of directory, and find migrations
+## to match with the modelname receive from npm run
+##
+seedPath = str(dirpath + '/../seeders').split('../')
+seedPath = "".join(seedPath)
+totalArchivos = listDirMaker(seedPath).getdirList()
+for indice in range(len(totalArchivos)):
+    pathArray = totalArchivos[indice].split('/')
+    seedName = pathArray[ len( pathArray ) - 1]
+    if (modelname in seedName):
+        seedPath = seedPath + "/" + seedName
+        break
+
+print RESET + '      * Seed path: ',seedPath
+newFileContent = list()
+done = False
+f = open(seedTemplatePath, 'r')
+for line in f:
+    if ( '$modelname$' in line ):
+        newFileContent.append(string.replace(line, '$modelname$', modelname))
+    else:
+        newFileContent.append(line)
+newFileContent = "".join(newFileContent)
+
+with open(seedPath, 'w') as the_file:
+    the_file.write(newFileContent)
+    the_file.close()
+    done = True
+
+f.close()
+print OKGREEN + '      * Seed corrected (ES6): ' + str(done)
+
+
 
 
 

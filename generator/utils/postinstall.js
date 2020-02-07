@@ -42,6 +42,7 @@ try {
     cmd(pythonInitCommand)
     console.log("[POST INSTALL] Deleting the source code from node_modules (project is yours now ).............")
     cmd(deleteAmazingPackage)
+    console.log("Run npm install to fill dependencies, then npm run dev:rollback to build your whole environment for development. Check docs.")
     console.log("Thanks by using us !")
     console.log(`
     _____       _        __ _____                      _     _____                     _           
