@@ -93,37 +93,26 @@ export default (sequelize, DataTypes) => {
       }
     }
   })
-  models.project.hasMany(models.sector, {
-    as: 'sectors', allowNull: true
-  }, {
-    onDelete: 'CASCADE',
-    hooks: true
-  })
-
-  models.project.belongsTo(models.company, {
-    foreignKey: 'companyId',
-    allowNull: true
-  })
   passwordreset.associate = function (models) {
 
     /**
      * An example of association is the follow
-     * Guess $modelname$ has a collection of cookies table.
+     * Guess passwordreset has a collection of cookies table.
      * At the same time, cookies just saves one reference 
-     * (foreign key) to it's $modelname$'s
+     * (foreign key) to it's passwordreset's
      * 
-     *   models.$modelname$.hasMany(models.cookie, {
+     *   models.passwordreset.hasMany(models.cookie, {
      *     as: 'cookies', allowNull: true
      *   }, {
      *     onDelete: 'CASCADE',
      *     hooks: true
      *   })
      * 
-     * At cookie.model.js must be declared the reference to it's $modelname$ owner 
+     * At cookie.model.js must be declared the reference to it's passwordreset owner 
      * on associate function as follow:
      * 
-     *   models.cookie.belongsTo(models.$modelname$, {
-     *     foreignKey: '$modelname$Id',
+     *   models.cookie.belongsTo(models.passwordreset, {
+     *     foreignKey: 'passwordresetId',
      *     allowNull: true
      *   })
      * 
