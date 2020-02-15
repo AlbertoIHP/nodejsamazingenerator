@@ -2,12 +2,9 @@
 
 import bcrypt from 'bcrypt'
 import { errorHandler } from '../../utils/error_handler'
-
-export const roles = [
-  'user',
-  'admin',
-  'superadmin'
-]
+import { Role } from '../../enums/Role.enum'
+import { uid } from 'rand-token'
+export const roles = Role
 
 /**
  * From queryman lib syntaxis (Check https://www.npmjs.com/package/bodymen)
@@ -28,7 +25,8 @@ export const roles = [
 export const userDataSchema = {
   email: {
     type: String,
-    required: true
+    required: true,
+    match: /^\S+@\S+\.\S+$/
   },
   password: {
     type: String,
@@ -39,9 +37,17 @@ export const userDataSchema = {
     required: true,
     enum: roles
   },
-  username: {
+  name: {
     type: String,
     required: true
+  },
+  is_active: {
+      type: Boolean,
+      required: false
+  },
+  activation_token: {
+      type: String,
+      required: false
   }
 }
 
@@ -69,9 +75,19 @@ export const userAttributes = (DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    username: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    is_active: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+        defaultValue: false
+    },
+    activation_token: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: uid(32)
     }
   }
 }
@@ -93,11 +109,13 @@ export default (sequelize, DataTypes) => {
        */
       beforeSave: async (user) => {
         try {
-          const hashedPass = await bcrypt.hash(user.password, 9)
-          user.password = hashedPass
-        } catch (err) {
+          if (!user.id) {
+              const hashedPass = await bcrypt.hash(user.password, 9)
+              user.password = hashedPass
+          }
+      } catch (err) {
           errorHandler(err)
-        }
+      }
       }
     }
   })

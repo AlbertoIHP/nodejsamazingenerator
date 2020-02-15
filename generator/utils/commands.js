@@ -5,16 +5,16 @@ export const execSync = require('child_process').execSync
 
 /**
  * Python at amazinGenerator executes a python script by a path given.
- * It basically asumes that you have UNIX console which needs Python 2.7 
+ * It basically asumes that you have UNIX console which needs Python 2.7
  * at Linux debian distros to work with it package manager (yum, apt, etc)
  * @name python
  * @param {*} filePath path to python script including .py (example src/app.py)
  */
-export const python = ( filePath ) =>{
-  console.log(statusConsole, '[STATUS] Executing ' + filePath)
-  const pythonCommand = 'python '+filePath
-  execSync(pythonCommand, { stdio: [0, 1, 2] })
-  console.log(successConsole, '[SUCCESS] ' + filePath +' execution without errors')
+export const python = (filePath) => {
+    console.log(statusConsole, '[STATUS] Executing ' + filePath)
+    const pythonCommand = 'python2.7 ' + filePath
+    execSync(pythonCommand, { stdio: [0, 1, 2] })
+    console.log(successConsole, '[SUCCESS] ' + filePath + ' execution without errors')
 }
 
 /**
@@ -23,11 +23,11 @@ export const python = ( filePath ) =>{
  * @param {*} command normal command that would be executed by bash console...
  */
 export const cmd = (command) => {
-  try {
-    execSync(command, { stdio: [0, 1, 2] })
-  } catch (err) {
-    console.log(errorConsole, 'ERROR:', JSON.stringify(err))
-  }
+    try {
+        execSync(command, { stdio: [0, 1, 2] })
+    } catch (err) {
+        console.log(errorConsole, 'ERROR:', JSON.stringify(err))
+    }
 }
 
 /**
@@ -38,21 +38,21 @@ export const cmd = (command) => {
  * @param {*} shortEnv abbreviation of the environment name (example: prod)
  */
 export const rollback = (fullEnv, shortEnv) => {
-  const dbDropCommand = 'npm run sequelize -- db:drop --env ' + fullEnv
-  const dbCreateCommand = 'npm run sequelize -- db:create --env ' + fullEnv
-  const dbMigrateCommand = 'npm run sequelize -- db:migrate --env ' + fullEnv
-  const dbSeedCommand = 'NODE_ENV=' + fullEnv + ' npm run sequelize -- db:seed:all'
-  const startServerCommand = 'npm run ' + shortEnv
+    const dbDropCommand = 'npm run sequelize -- db:drop --env ' + fullEnv
+    const dbCreateCommand = 'npm run sequelize -- db:create --env ' + fullEnv
+    // const dbMigrateCommand = 'npm run sequelize -- db:migrate --env ' + fullEnv
+    // const dbSeedCommand = 'NODE_ENV=' + fullEnv + ' npm run sequelize -- db:seed:all'
+    const startServerCommand = 'npm run ' + shortEnv
 
-  cmd(dbDropCommand)
-  cmd(dbCreateCommand)
-  cmd(dbMigrateCommand)
-  cmd(dbSeedCommand)
-  cmd(startServerCommand)
+    cmd(dbDropCommand)
+    cmd(dbCreateCommand)
+    // cmd(dbMigrateCommand)
+    // cmd(dbSeedCommand)
+    cmd(startServerCommand)
 }
 
 /**
- * Model function at amazinGenerator follow the sequelize-cli scaffold script to create a new model by 
+ * Model function at amazinGenerator follow the sequelize-cli scaffold script to create a new model by
  * a model name given and also attributes with sequelize-cli syntax.
  * Then, comes the magic, amazinGenerator runs a python script which goes through this sacffolded files
  * and modifies it to good practices peace of code ¡ AUTO GENERATED !
@@ -61,7 +61,7 @@ export const rollback = (fullEnv, shortEnv) => {
  * @param {*} modelName name of the entity to scaffold
  * @param {*} modelAttributes attributes given by npm script as format name:string,age:integer...
  */
-export const model = ( dirPath, modelName, modelAttributes) => {
+export const model = (dirPath, modelName, modelAttributes) => {
     const mkDirCommand = 'mkdir -p ' + dirPath
     const sequelizeCliCommand = 'npx sequelize-cli --models-path ' + dirPath + ' model:generate --name ' + modelName + '.model --attributes ' + modelAttributes
     const sequelizeSeedComand = 'npx sequelize-cli seed:generate --name ' + modelName + '-seed'

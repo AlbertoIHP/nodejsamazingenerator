@@ -16,11 +16,11 @@ export const success = (res, status) => (entity) => {
  * This method try at last try, checking entity existing, if not just a 404 is deployed
  * @param {*} res receives the res from a fetching request
  */
-export const notFound = (res) => (entity) => {
+export const notFound = (res, status = 404) => (entity) => {
   if (entity) {
-    return res.status(500).json(entity)
+      return res.status(status).json(entity)
   }
-  res.status(404).end()
+  res.status(status).end()
   return null
 }
 

@@ -7,7 +7,9 @@ import { index, show, create, update, destroy } from './$modelname$.controller'
 import { $modelname$DataSchema } from './$modelname$.model'
 
 const router = new Router()
-
+const {
+    $attributestittles$
+} = $modelname$DataSchema
 
 /**
  * @api {get} /$modelname$s Retrieve $modelname$s
@@ -52,7 +54,6 @@ router.get('/:id',
 router.post('/',
   master(),
   body({
-      
       ...$modelname$DataSchema
   }),
   create)

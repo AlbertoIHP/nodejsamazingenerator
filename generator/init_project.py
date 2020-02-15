@@ -93,11 +93,18 @@ if(serverSendgridKey == ''):
     serverSendgridKey = 'NONE'
 envs.append('SENDGRID_KEY=' + serverSendgridKey + '\n')
 
-##Server Logging
+##BD Server Logging
 serverLog = raw_input("     > Want to see BD queries on server log(Enter for default: true):")
 if(serverLog == ''):
     serverLog = 'true'
 envs.append('DB_LOG=' + serverLog + '\n')
+
+
+##API_ROOT SERVER
+apiRoot = raw_input("     > Which is your API ROOT, this will be added as example for localhost:3000/myapiroot/myspecificentityapi (Enter for default: '/api'):")
+if(apiRoot == ''):
+    apiRoot = '/api'
+
 
 ##Server JWT Secret
 serverJwt = raw_input("     > Which is your JWT key this will be encode to base64 string (Enter for default: jwtsecret):")
@@ -116,6 +123,7 @@ serverMasterSecret = serverMasterSecret + serverMasterSecret + serverMasterSecre
 serverMasterSecret = serverMasterSecret.encode('ascii')
 serverMasterSecret = base64.b64encode( serverMasterSecret )
 envs.append('MASTER_KEY=' + serverMasterSecret + '\n')
+envs.append('API_ROOT=' + apiRoot + '\n')
 
 finalPath = os.getcwd()
 finalPath = finalPath.split('/node_modules/nodejsamazingenerator')

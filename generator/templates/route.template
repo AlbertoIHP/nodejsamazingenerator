@@ -1,2 +1,2 @@
 
-router.use('/api/$modelname$s', $modelname$Router)
+router.use('/$modelname$s', $modelname$Router)

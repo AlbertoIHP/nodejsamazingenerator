@@ -3,16 +3,10 @@ import { Router } from 'express'
 import { middleware as query } from 'querymen'
 import { middleware as body } from 'bodymen'
 import { master, token } from '../../services/passport'
-import { index, show, create, update, destroy } from './user.controller'
+import { index, show, create, update, destroy, validateUser, findByToken } from './user.controller'
 import { userDataSchema } from './user.model'
 
 const router = new Router()
-const {
-  email,
-  password,
-  role,
-  username
-} = userDataSchema
 
 /**
  * @api {get} /users Retrieve users
@@ -61,14 +55,15 @@ router.get('/:id',
  * @apiError 409 Email already registered.
  */
 router.post('/',
-  master(),
-  body({
-    email,
-    password,
-    role,
-    username
-  }),
-  create)
+    master(),
+    body({
+        ...userDataSchema,
+        link: {
+            type: String,
+            required: true
+        }
+    }),
+    create)
 
 /**
  * @api {put} /users/:id Update user
@@ -87,10 +82,7 @@ router.put('/:id',
   master(),
   token({ required: true }),
   body({
-    email,
-    password,
-    role,
-    username
+    ...userDataSchema
   }),
   update)
 
@@ -109,4 +101,17 @@ router.delete('/:id',
   token({ required: true, roles: ['admin'] }),
   destroy)
 
+
+
+router.get('/get_user_by_token/:token',
+  master(),
+  findByToken)
+
+router.post('/validateUser',
+  master(),
+  body({
+      activation_token: userDataSchema.activation_token
+  }),
+  validateUser)
+  
 export default router

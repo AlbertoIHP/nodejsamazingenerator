@@ -1,6 +1,6 @@
 {
     "name": "nodejsamazingenerator",
-    "version": "1.40.2release",
+    "version": "1.50.0ondevelopment",
     "private": false,
     "main": "generator/generator.js",
     "author": {
@@ -8,11 +8,10 @@
     },
     "license": "MIT",
     "scripts": {
-      "postinstall": "node -e \"try { require('./generator/utils/postinstall') } catch (_) {}\"",
       "sequelize": "./node_modules/.bin/babel-node ./node_modules/.bin/sequelize $*",
-      "dev": "NODE_ENV=development nodemon --exec babel-node --presets es2015 ./src",
-      "prod": "NODE_ENV=production nodemon --exec babel-node --presets es2015 ./src",
-      "test": "NODE_ENV=test mocha --require babel-core/register --watch",
+      "dev": "npm run test; NODE_ENV=development nodemon --exec babel-node --presets es2015 ./src",
+      "prod": "npm run test; NODE_ENV=production nodemon --exec babel-node --presets es2015 ./src",
+      "test": "NODE_ENV=test mocha --require babel-core/register --exit",
       "start": "npm run prod",
       "docs": "apidoc -i src -o docs && apidoc-markdown -p docs -o DOCS.md",
       "lint": "eslint src",
@@ -20,7 +19,7 @@
       "dev:rollback": "node ./node_modules/.bin/babel-node generator/generator.js --init dev:rollback",
       "test:rollback": "node ./node_modules/.bin/babel-node generator/generator.js --init test:rollback",
       "prod:rollback": "node ./node_modules/.bin/babel-node generator/generator.js --init prod:rollback",
-      "model:auto": "sequelize-auto -o /src/api -d mydbname -h myhost -u mydbuser -p 5432 -x mydbpassword -e postgres",
+      "model:auto": "sequelize-auto -o /src/api -d proplanner_dev -h 18.188.52.161 -u ipsumdev -p 5432 -x aqwe123 -e postgres",
       "model": "node ./node_modules/.bin/babel-node generator/generator.js",
       "init:project": "node ./node_modules/.bin/babel-node generator/generator.js --init true"
     },

@@ -7,8 +7,7 @@ import { errorHandler } from '../../utils/error_handler'
 export const index = async ({ querymen: { query, select, cursor } }, res, next) => {
   try {
     const $modelname$s = await models.$modelname$.findAll()
-    res.status(200).send({ $modelname$s: $modelname$s })
-    success(res)({ $modelname$s: $modelname$s })
+    success(res, 200)({ $modelname$s: $modelname$s })
   } catch (err) {
     errorHandler(err)
     notFound(res)({ msj: err })
@@ -33,20 +32,14 @@ export const show = async ({ params }, res, next) => {
  * @param {*} next next function from Express to go through the next middleware on the fetch
  */
 export const create = async ({ bodymen: { body } }, res, next) => {
-  console.log(consoleColors.successConsole, '[SUCCESS] Master and Bodyman middlewares check completed succesfully')
   try {
     const new$modelname$ = await models.$modelname$.build(body)
     if (new$modelname$) {
       await new$modelname$.save()
-      console.log(new$modelname$.password)
-      if (success(res, 200)(new$modelname$)) {
-        console.log(consoleColors.statusConsole, '[STATUS] Returned res succesfully to fetcher')
-      } else {
-        next()
-      }
-    } else {
-      next()
-    }
+            if (new$modelname$.id) {
+                success(res, 200)(new$modelname$)
+            } else throw 'Cant save the $modelname$ on DB'
+        } else throw 'Cant build the $modelname$ model'
   } catch (err) {
     errorHandler(err)
     notFound(res)({ msj: err })
@@ -55,10 +48,10 @@ export const create = async ({ bodymen: { body } }, res, next) => {
 
 export const update = async ({ bodymen: { body }, params, $modelname$ }, res, next) => {
   try {
-    const s = await models.$modelname$.update(body, { where: { id: body.id } })
+    const s = await models.$modelname$.update(body, { where: { id: params.id } })
     if (s != null) success(res)({ msj: '$modelname$ updated', $modelname$: s })
     // eslint-disable-next-line no-throw-literal
-    else throw '$modelname$ no existe!'
+    else throw '$modelname$ dont exist!'
   } catch (err) {
     errorHandler(err)
     notFound(res)({ msj: err })
@@ -69,7 +62,7 @@ export const destroy = async ({ params }, res, next) => {
   try {
     const s = await models.$modelname$.findOne({ where: { id: params.id } })
     const deleted = await s.destroy()
-    success(200)({ msj: '$modelname$ deleted', $modelname$: deleted })
+    success(res, 200)({ msj: '$modelname$ deleted', $modelname$: deleted })
   } catch (err) {
     errorHandler(err)
     notFound(res)({ msj: err })

@@ -1,6 +1,6 @@
 
 import { sign } from '../../services/jwt'
-import { success } from '../../services/response/'
+import { success, notFound } from '../../services/response/'
 
 /**
  * This methods uses SIGN function from service JWT (Check services/jwt folder)
@@ -11,7 +11,9 @@ import { success } from '../../services/response/'
  * (check https://stackoverflow.com/questions/10695629/what-is-the-parameter-next-used-for-in-express)
  */
 export const login = ({ user }, res, next) => {
-  console.log('[STATUS] Logging user')
+  if (!user.is_active) {
+    return notFound(res, 401)({ msg: 'This user did not confirm his email.' })
+  }
   return sign(user.id)
     .then((token) => ({ token, user: user }))
     .then(success(res, 201))
