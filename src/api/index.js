@@ -29,9 +29,9 @@ const router = new Router()
  * @apiParam {String[]} [sort=-createdAt] Order of returned items.
  * @apiParam {String[]} [fields] Fields to be returned.
  */
-router.use('/api/users', user)
+router.use('/users', user)
 router.use('/auth', auth)
-router.use('/api/passwordresets', passwordresetRouter)
+router.use('/passwordresets', passwordresetRouter)
 /** nextApi */
 
 export default router

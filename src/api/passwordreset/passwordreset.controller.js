@@ -6,6 +6,7 @@ import { errorHandler } from '../../utils/error_handler'
 import { sendMail } from '../../services/sendgrid'
 import { htmlEmailContent } from './passwordreset.helpers'
 import { uid } from 'rand-token'
+import bcrypt from 'bcrypt'
 
 export const show = async ({ params }, res, next) => {
   try {
@@ -46,7 +47,7 @@ export const create = async ({ bodymen: { body } }, res, next) => {
         const link = `${body.link.replace(/\/$/, '')}/${newPasswordReset.rest_token}`
         const mail = await sendMail({ toEmail: userFetcher.email, subject: 'ProPlannerV2 - Password Reset', content: htmlEmailContent(userFetcher.username, link) })
         if (mail) {
-          success(res)({ msj: 'Email sent with status ' + mail[0].statusCode })
+          success(res)({ msj: 'Email sent with status ' + mail[0].statusCode, newPasswordReset })
         } else throw 'Could not send email'
       } else throw 'Could not generate your password reset ticket'
     } else throw 'User does not exist.'
@@ -58,20 +59,22 @@ export const create = async ({ bodymen: { body } }, res, next) => {
 
 export const update = async ({ bodymen: { body }, params, passwordreset }, res, next) => {
   try {
-    const resetToken = params.token
-    const passwordReset = await models.passwordreset.findOne({ where: { rest_token: resetToken } })
+    if (params.token) {
+      const resetToken = params.token
+      const passwordReset = await models.passwordreset.findOne({ where: { rest_token: resetToken } })
 
-    if (passwordReset) {
-      const userFetcher = await models.user.findOne({ where: { id: passwordReset.user_id } })
-      if (userFetcher) {
-        userFetcher.password = body.password
-        await userFetcher.save()
-        passwordReset.destroy()
-        success(res, 200)(userFetcher)
-      } else throw 'User dont exist'
-    } else throw 'Token dont exist or it expires'
+      if (passwordReset) {
+        const userFetcher = await models.user.findOne({ where: { id: passwordReset.user_id } })
+        if (userFetcher) {
+          userFetcher.password = await bcrypt.hash(body.password, 9)
+          await userFetcher.save()
+          passwordReset.destroy()
+          success(res, 200)(userFetcher)
+        } else throw 'User dont exist'
+      } else throw 'Token dont exist or it expires'
+    } else throw 'You must specifiy the rest_token at url'
   } catch (err) {
     errorHandler(err)
-    notFound(res)({ msj: err })
+    notFound(res)({ msj: err.message ? err.message : err })
   }
 }
