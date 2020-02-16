@@ -75,13 +75,13 @@ Finally configure your environment vars
 ```
 npm run init:project
 ```
-Start the project and start coding !
+Run minimal features test to create DB tables
 ```bash
-npm run dev:rollback
+npm run test:rollback
 ```
-Or just start it by running
+And finally test it
 ```bash
-npm run dev
+npm run test
 ```
 
 ## Usage
