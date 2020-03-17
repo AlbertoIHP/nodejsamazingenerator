@@ -23,7 +23,7 @@ factory.define('user', models.user, {
   email: () => faker.internet.email(),
   password: () => faker.internet.password(),
   role: () => roles[getRandomInt(0, roles.length)],
-  username: () => faker.internet.userName()
+  name: () => faker.internet.userName()
 })
 
 export default factory

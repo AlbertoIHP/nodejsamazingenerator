@@ -3,7 +3,6 @@ from listdirmaker import listDirMaker
 import string
 
 
-print "ASDASDASDASDASDASD"
 ##
 ## Some fancy stuff for generator :) AHP
 ##

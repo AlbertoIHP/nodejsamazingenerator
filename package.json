@@ -1,6 +1,6 @@
 {
   "name": "nodejsamazingenerator",
-  "version": "1.60.30",
+  "version": "1.60.40",
   "private": false,
   "main": "generator/generator.js",
   "author": {
