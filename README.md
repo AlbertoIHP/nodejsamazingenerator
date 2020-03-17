@@ -468,7 +468,7 @@ backnodejs/
 
 	      if (newPasswordReset) {
 	        const link = `${body.link.replace(/\/$/, '')}/${newPasswordReset.rest_token}`
-	        const mail = await sendMail({ toEmail: userFetcher.email, subject: 'ProPlannerV2 - Password Reset', content: htmlEmailContent(userFetcher.username, link) })
+	        const mail = await sendMail({ toEmail: userFetcher.email, subject: ' Password Reset', content: htmlEmailContent(userFetcher.username, link) })
 	        if (mail) {
 	          success(res)({ msj: 'Email sent with status ' + mail[0].statusCode })
 	        } else throw 'Could not send email'
