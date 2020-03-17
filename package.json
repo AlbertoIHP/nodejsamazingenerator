@@ -1,6 +1,6 @@
 {
   "name": "nodejsamazingenerator",
-  "version": "1.10.0",
+  "version": "1.60.15",
   "private": false,
   "main": "generator/generator.js",
   "author": {
@@ -8,6 +8,7 @@
   },  
   "license": "MIT",
   "scripts": {
+    "postinstall": "node -e \"try { require('./generator/utils/postinstall') } catch (_) {}\"",
     "sequelize": "./node_modules/.bin/babel-node ./node_modules/.bin/sequelize $*",
     "dev": "NODE_ENV=development nodemon --exec babel-node --presets es2015 ./src",
     "prod": "NODE_ENV=production nodemon --exec babel-node --presets es2015 ./src",
