@@ -23,7 +23,9 @@ factory.define('user', models.user, {
   email: () => faker.internet.email(),
   password: () => faker.internet.password(),
   role: () => roles[getRandomInt(0, roles.length)],
-  name: () => faker.internet.userName()
+  name: () => faker.internet.userName(),
+  createdAt: () => new Date(),
+  updatedAt: () => new Date()
 })
 
 export default factory

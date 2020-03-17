@@ -17,7 +17,9 @@ import faker from 'faker'
 factory.define('passwordreset', models.passwordreset, {
   user_id: () => faker.random.number(),
   rest_token: () => faker.lorem.sentence(),
-  created_at: () => Date.now()
+  created_at: () => Date.now(),
+  createdAt: () => new Date(),
+  updatedAt: () => new Date()
 })
 
 export default factory
