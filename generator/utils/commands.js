@@ -40,14 +40,16 @@ export const cmd = (command) => {
 export const rollback = (fullEnv, shortEnv) => {
     const dbDropCommand = 'npm run sequelize -- db:drop --env ' + fullEnv
     const dbCreateCommand = 'npm run sequelize -- db:create --env ' + fullEnv
-    // const dbMigrateCommand = 'npm run sequelize -- db:migrate --env ' + fullEnv
-    // const dbSeedCommand = 'NODE_ENV=' + fullEnv + ' npm run sequelize -- db:seed:all'
+    const dbMigrateCommand = 'npm run sequelize -- db:migrate --env ' + fullEnv
+    const dbSeedCommand = 'NODE_ENV=' + fullEnv + ' npm run sequelize -- db:seed:all'
+    const test = 'NODE_ENV=' + fullEnv + ' mocha --require babel-core/register --exit'
     const startServerCommand = 'npm run ' + shortEnv
 
     cmd(dbDropCommand)
     cmd(dbCreateCommand)
-    // cmd(dbMigrateCommand)
-    // cmd(dbSeedCommand)
+    cmd(dbMigrateCommand)
+    cmd(test)
+    cmd(dbSeedCommand)
     cmd(startServerCommand)
 }
 

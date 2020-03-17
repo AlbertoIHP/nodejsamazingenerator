@@ -28,14 +28,16 @@ describe('Minimal features test', function () {
   this.enableTimeouts(false)
 
   before(function (done) {
+    let env = process.env.NODE_ENV
     try {
-      models.sequelize.sync({ force: true, logging: false }).then(() => {
-        console.log('[SUCCESS] DATABASE HAS BEEN SYNC (UPDATED)')
-        models.user.destroy({
-          where: {},
-          truncate: false
-        })
-        done()
+        models.sequelize.sync({ force: true, logging: false }).then(() => {
+            console.log('[SUCCESS] DATABASE HAS BEEN SYNC (UPDATED)')
+            models.user.destroy({
+                where: {},
+                truncate: false
+            })
+            if (env != 'test') process.exit(1)
+            done()
       })
     } catch (err) {
       console.log(err)
