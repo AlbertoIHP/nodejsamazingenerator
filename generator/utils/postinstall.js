@@ -23,7 +23,7 @@ try {
         const transferNodeModulesPackageCommand = 'mv ' + basePath + '/node_modules/nodejsamazingenerator/* ' + basePath
         const createDotFilesCommand = 'mv ' + basePath + '/env.example ' + basePath + '/.env.example; mv ' + basePath + '/eslintrc ' + basePath + '/.eslintrc; mv ' + basePath + '/gitignore ' + basePath + '/.gitignore; mv ' + basePath + '/editorconfig ' + basePath + '/.editorconfig; mv ' + basePath + '/babelrc ' + basePath + '/.babelrc'
         const copyPackageJsonCommand = 'rm -rf ' + basePath + '/package.json; cp ' + basePath + '/generator/templates/package.template ' + basePath + '/package.json'
-        const pythonInitCommand = 'python ' + basePath + '/generator/init_project.py'
+        const pythonInitCommand = 'python2.7 ' + basePath + '/generator/init_project.py'
         const deleteAmazingPackage = 'rm -rf ' + basePath + '/node_modules ' + basePath + '/package-lock.json' // Project is yours now :)
 
         console.log('[POST INSTALL] Deleting package.json and package-lock.json.............')
