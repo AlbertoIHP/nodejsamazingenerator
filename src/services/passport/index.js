@@ -158,7 +158,7 @@ passport.use('token', new JwtStrategy({
         /**
          * NOTE: This generator sets JWT token at header (Proxy-Authorization Bearer token) format 
          */
-        if (header == 'proxy-authorization') { token = (req.rawHeaders[(index + 1)]).split('Bearer ').join('') }
+        if (header == 'www-authenticate') { token = (req.rawHeaders[(index + 1)]).split('Bearer ').join('') }
       })
     }
     return token
