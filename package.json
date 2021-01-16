@@ -1,6 +1,6 @@
 {
   "name": "nodejsamazingenerator",
-  "version": "1.70.10stable",
+  "version": "1.70.50stable",
   "private": false,
   "main": "generator/generator.js",
   "author": {
@@ -22,7 +22,10 @@
     "prod:rollback": "node ./node_modules/.bin/babel-node generator/generator.js --init prod:rollback",
     "model:auto": "sequelize-auto -o /src/api -d myproject_dev -h localhost -u rails_dev -p 5432 -x aqwe123 -e postgres",
     "model": "node ./node_modules/.bin/babel-node generator/generator.js",
-    "init:project": "node ./node_modules/.bin/babel-node generator/generator.js --init true"
+    "init:project": "node ./node_modules/.bin/babel-node generator/generator.js --init true",
+    "dev:update": "NODE_ENV=development node ./node_modules/.bin/babel-node src/services/sequelize/reloadDb.js",
+    "test:update": "NODE_ENV=test node ./node_modules/.bin/babel-node src/services/sequelize/reloadDb.js",
+    "prod:update": "NODE_ENV=production node ./node_modules/.bin/babel-node src/services/sequelize/reloadDb.js",
   },
   "keywords": [
     "nodejs",
