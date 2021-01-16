@@ -25,7 +25,7 @@
     "init:project": "node ./node_modules/.bin/babel-node generator/generator.js --init true",
     "dev:update": "NODE_ENV=development node ./node_modules/.bin/babel-node src/services/sequelize/reloadDb.js",
     "test:update": "NODE_ENV=test node ./node_modules/.bin/babel-node src/services/sequelize/reloadDb.js",
-    "prod:update": "NODE_ENV=production node ./node_modules/.bin/babel-node src/services/sequelize/reloadDb.js",
+    "prod:update": "NODE_ENV=production node ./node_modules/.bin/babel-node src/services/sequelize/reloadDb.js"
   },
   "keywords": [
     "nodejs",
